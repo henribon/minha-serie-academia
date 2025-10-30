@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treino - Henrique Bon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
+            padding: 40px 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #fff;
+            padding: 20px;
+            border-bottom: 3px solid #9333ea;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #9333ea;
+        }
+
+        .goal {
+            background: linear-gradient(135deg, #e9d5ff 0%, #ddd6fe 100%);
+            padding: 18px 25px;
+            text-align: center;
+            border-left: 5px solid #9333ea;
+            margin: 20px 30px;
+            border-radius: 10px;
+        }
+
+        .goal h3 {
+            color: #6b21a8;
+            margin-bottom: 6px;
+            font-size: 1.1em;
+        }
+
+        .goal p {
+            color: #555;
+            font-size: 1em;
+        }
+
+        .start-date {
+            background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
+            padding: 18px 25px;
+            text-align: center;
+            border-left: 5px solid #7c3aed;
+            margin: 20px 30px;
+            border-radius: 10px;
+        }
+
+        .start-date h3 {
+            color: #5b21b6;
+            margin-bottom: 6px;
+            font-size: 1.1em;
+        }
+
+        .start-date p {
+            color: #555;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .workout-section {
+            padding: 30px;
+        }
+
+        .day-container {
+            margin-bottom: 20px;
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
+            color: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+        }
+
+        .day-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(147, 51, 234, 0.4);
+        }
+
+        .day-header.active {
+            border-radius: 12px 12px 0 0;
+        }
+
+        .day-title {
+            font-size: 1.6em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .day-arrow {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .day-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .day-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f9fa;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .day-content.active {
+            max-height: 8000px;
+            padding: 25px;
+        }
+
+        .exercise-list {
+            list-style: none;
+        }
+
+        .exercise-item {
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            background: white;
+            border-left: 5px solid #9333ea;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .exercise-item.new {
+            border-left: 5px solid #10b981;
+            background: #f0fdf4;
+        }
+
+        .exercise-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .exercise-number {
+            background: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .exercise-item.new .exercise-number {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        }
+
+        .exercise-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .exercise-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+
+        .exercise-reps {
+            background: #e9ecef;
+            color: #495057;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .exercise-link {
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .tutorial-btn {
+            background: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tutorial-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.4);
+        }
+
+        .tutorial-btn::before {
+            content: "▶";
+            font-size: 0.8em;
+        }
+
+        .tutorial-btn.active::before {
+            content: "▼";
+        }
+
+        .new-badge {
+            background: #10b981;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .exercise-note {
+            width: 100%;
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+            margin-top: 8px;
+            padding-left: 50px;
+        }
+
+        .gif-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            margin-top: 0;
+        }
+
+        .gif-container.active {
+            max-height: 600px;
+            margin-top: 15px;
+        }
+
+        .gif-wrapper {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .gif-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .tip-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+
+        .tip-box h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .tip-box p {
+            color: #856404;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .exercise-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .exercise-link {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+
+            .exercise-note {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💪 Meu Treino 💪</h1>
+            <div class="subtitle">Henrique Bon</div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Altura</div>
+                <div class="stat-value">1,85m</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Peso Atual</div>
+                <div class="stat-value">81kg</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Meta</div>
+                <div class="stat-value">85kg</div>
+            </div>
+        </div>
+
+        <div class="goal">
+            <h3>🎯 OBJETIVO</h3>
+            <p>Ganho de massa muscular + 85kg</p>
+        </div>
+
+        <div class="start-date">
+            <h3>📅 Início do Treino</h3>
+            <p>30 de Outubro de 2025</p>
+        </div>
+
+        <div class="workout-section">
+            <!-- DIA 1 -->
+            <div class="day-container">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-title">
+                        <span>💪</span>
+                        <span>Dia 1 - Peito, Tríceps e Ombro</span>
+                    </div>
+                    <div class="day-arrow">▼</div>
+                </div>
+                <div class="day-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">1</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Supino com Barra</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/07/barbell-lying-closegrip-press.gif" alt="Supino com Barra">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">2</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Crucifixo</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">🔥 Com dropset</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/09/lever-seated-fly.gif" alt="Crucifixo">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">3</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Supino Inclinado na Máquina</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/07/lever-incline-chest-press.gif" alt="Supino Inclinado Máquina">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">4</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Elevação Lateral na Polia</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/05/elevacao-lateral-inclinada.gif" alt="Elevação Lateral Polia">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">5</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Extensão de Ombro</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/11/dumbbell-front-raise.gif" alt="Extensão de Ombro">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">6</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Desenvolvimento de Ombro Máquina</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://media.tenor.com/vFJSvh8AvhAAAAAM/a1.gif" alt="Desenvolvimento Máquina">
+                                </div>
+                            </div>
+                        </li>
+
+
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">8</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Tríceps Testa</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/02/barbell-lying-triceps-extension-skull-crusher.gif" alt="Tríceps Testa">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">9</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Supino Reto Pegada Neutra</span>
+                                    <span class="exercise-reps">3x10</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/06/dumbbell-lying-hammer-press.gif" alt="Supino Pegada Neutra">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">10</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Mergulho Máquina</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2021/07/triceps-sentado-no-aparelho.gif" alt="Mergulho Máquina">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+
+            <!-- DIA 2 -->
+            <div class="day-container">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-title">
+                        <span>🦵</span>
+                        <span>Dia 2 - Quadríceps Completo</span>
+                    </div>
+                    <div class="day-arrow">▼</div>
+                </div>
+                <div class="day-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">1</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Máquina Flexora</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">⚙️ Unilateral / junto até falha</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/12/cadeira-flexora.gif" alt="Máquina Flexora">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">2</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Agachamento Inclinado</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/sled-hack-squat.gif" alt="Agachamento Inclinado">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">3</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Agachamento Livre</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://media.tenor.com/Re3T3B66V9UAAAAM/barbellsquats-gymexercisesmen.gif" alt="Agachamento Livre">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">4</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Leg Press</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">💪 Bombeando 2T</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://media.tenor.com/e0qeS17dv7QAAAAM/legpress45-leg-press.gif" alt="Leg Press">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">5</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Cadeira Extensora</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">🔥 Faz 12 e depois 12 segurando</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://media.tenor.com/fNeMiJuGmEcAAAAM/cadeira-extensora-extensora.gif" alt="Cadeira Extensora">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">6</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Stiff</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://i.pinimg.com/originals/82/4d/fd/824dfd405284597cd20e8a55233e2d77.gif" alt="Stiff">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">7</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Cadeira Abdutora</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/09/lever-seated-hip-abduction.gif" alt="Cadeira Abdutora">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">8</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Cadeira Adutora</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://i.pinimg.com/originals/4e/17/b8/4e17b88b6b11c54155939c0a5b3c3381.gif" alt="Cadeira Adutora">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+
+            <!-- DIA 3 -->
+            <div class="day-container">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-title">
+                        <span>🔥</span>
+                        <span>Dia 3 - Costas e Bíceps</span>
+                    </div>
+                    <div class="day-arrow">▼</div>
+                </div>
+                <div class="day-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">1</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Remada Aberta</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2021/09/remada-na-maquina-de-cabos-sentado-e-com-pegada-aberta.gif" alt="Remada Aberta">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">2</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Remada Neutra Triângulo</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://trainings.com.br/app/imgmovimentos/costas-remada%20baixa%20unilateral%20pegada%20neutra.gif" alt="Remada Triângulo">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">3</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Crucifixo Invertido</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2018/03/lever-seated-reverse-fly-parallel-grip.gif" alt="Crucifixo Invertido">
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">5</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Bíceps Barra H</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2019/04/ez-barbell-curl.gif" alt="Bíceps Barra H">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">6</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Rosca Martelo com Halteres</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/08/dumbbell-incline-hammer-curl.gif" alt="Rosca Martelo">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">7</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Rosca no Cabo com Corda</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/rosca-biceps-no-cabo.gif" alt="Rosca Cabo Corda">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- ABDOMINAIS -->
+            <div class="day-container">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-title">
+                        <span>🔥</span>
+                        <span>Abdominais - Rodízio Diário</span>
+                    </div>
+                    <div class="day-arrow">▼</div>
+                </div>
+                <div class="day-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">1</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Abdominal na Polia</span>
+                                    <span class="exercise-reps">3x15</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">📌 Fazer no Dia 1</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://treinomestre.com.br/wp-content/uploads/2024/10/abdominal-na-polia-em-pe.gif" alt="Abdominal Polia">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">2</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Abdominal Canivete</span>
+                                    <span class="exercise-reps">3x15</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">📌 Fazer no Dia 2</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://i.makeagif.com/media/10-05-2024/MZvJ3_.gif" alt="Abdominal Canivete">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">3</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Prancha Isométrica</span>
+                                    <span class="exercise-reps">3x45-60seg</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">📌 Fazer no Dia 3</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/prancha-com-elevacao-das-pernas-prancha-aranha.gif" alt="Prancha">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <h4>💡 Como Usar</h4>
+                        <p>Faça 1 exercício de abdômen ao final de cada treino em sistema de rodízio. Isso garante trabalho completo do core!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORTALECIMENTO DE PULSO -->
+            <div class="day-container">
+                <div class="day-header" onclick="toggleDay(this)">
+                    <div class="day-title">
+                        <span>💪</span>
+                        <span>Fortalecimento de Pulso</span>
+                    </div>
+                    <div class="day-arrow">▼</div>
+                </div>
+                <div class="day-content">
+                    <ul class="exercise-list">
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">1</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Rosca de Punho com Halteres</span>
+                                    <span class="exercise-reps">3x15</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">⚙️ Sentado, antebraço apoiado na coxa</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/11/dumbbell-wrist-curl.gif" alt="Rosca Punho">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">2</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Rosca de Punho Inversa</span>
+                                    <span class="exercise-reps">3x15</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">⚙️ Palma para baixo</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/06/barbell-reverse-wrist-curl.gif" alt="Rosca Punho Inversa">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">3</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Desvio Radial e Ulnar</span>
+                                    <span class="exercise-reps">3x12</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">⚙️ Movimento lateral do pulso com halter</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/03/radial-ulnar-deviation.gif" alt="Desvio Radial">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="exercise-item">
+                            <div class="exercise-header">
+                                <div class="exercise-number">4</div>
+                                <div class="exercise-content">
+                                    <span class="exercise-name">Aperto de Hand Grip</span>
+                                    <span class="exercise-reps">3x20</span>
+                                    <div class="exercise-link">
+                                        <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
+                                    </div>
+                                    <div class="exercise-note">⚙️ Fortalece antebraço e pegada</div>
+                                </div>
+                            </div>
+                            <div class="gif-container">
+                                <div class="gif-wrapper">
+                                    <img src="https://media.tenor.com/InLRRVfzVHUAAAAM/gods-of-grip.gif" alt="Hand Grip">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="tip-box">
+                        <h4>💡 Quando Fazer</h4>
+                        <p>Faça 2-3x por semana, de preferência após o treino de costas/bíceps ou em dias separados. Use pesos leves e foque no movimento controlado. Isso vai fortalecer os pulsos e reduzir as dores!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>💪 Foco, disciplina e resultados! 💪</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDay(header) {
+            const dayContent = header.nextElementSibling;
+            const arrow = header.querySelector('.day-arrow');
+            
+            dayContent.classList.toggle('active');
+            arrow.classList.toggle('active');
+            header.classList.toggle('active');
+        }
+
+        function toggleGif(button, event) {
+            event.stopPropagation();
+            
+            const exerciseItem = button.closest('.exercise-item');
+            const gifContainer = exerciseItem.querySelector('.gif-container');
+            
+            gifContainer.classList.toggle('active');
+            button.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
