@@ -1599,11 +1599,13 @@
                                 </div>
                             </div>
                         </li>
+
+                        <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                        ✅ Malhei Hoje
+                        </button>
                         
                     </ul>
-                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                    ✅ Malhei Hoje
-                    </button>
+                    
 
                     <div class="tip-box">
                         <h4>💡 Quando Fazer</h4>
@@ -1637,7 +1639,7 @@
     </div>
 
     <script>
-        
+
         function resetProgress() {
             localStorage.removeItem('workoutCount');
 
