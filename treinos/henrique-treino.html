@@ -1144,12 +1144,12 @@
                                 </div>
                             </div>
                         </li>
+                        <div class="workout-footer">
+                            <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                                ✅ Malhei Hoje
+                            </button>
+                        </div>
                     </ul>
-                </div>
-                <div class="workout-footer">
-                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                        ✅ Malhei Hoje
-                    </button>
                 </div>
             </div>
 
@@ -1339,11 +1339,11 @@
                             </div>
                         </li>
                     </ul>
-                </div>
-                <div class="workout-footer">
-                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                        ✅ Malhei Hoje
-                    </button>
+                    <div class="workout-footer">
+                        <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                            ✅ Malhei Hoje
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -1473,10 +1473,12 @@
                                 </div>
                             </div>
                         </li>
+                        <div class="workout-footer">
+                            <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                                ✅ Malhei Hoje
+                            </button>
+                        </div>
                     </ul>
-                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                        ✅ Malhei Hoje
-                    </button>
                 </div>
             </div>
 
@@ -1506,47 +1508,55 @@
 
         <script>
 
-            function resetProgress() {
-                localStorage.removeItem('workoutCount');
+            const STORAGE_KEY = "workoutCount_" + window.location.pathname;
 
-                document.querySelectorAll('.day-container').forEach(day => {
-                    day.classList.remove('highlighted');
-                });
-
-                alert("✅ Progresso de treinos resetado! Pronto para recomeçar!");
-
-            }
+            // Atualiza contador na tela ao carregar
+            document.addEventListener("DOMContentLoaded", () => {
+                const count = localStorage.getItem(STORAGE_KEY) || 0;
+                const display = document.getElementById("workoutCounter");
+                if (display) display.textContent = count;
+            });
 
             function incrementWorkoutCounter(button) {
-
-                // Pega todos os dias de treino
-                const allDays = Array.from(document.querySelectorAll('.day-container'));
-
-                // Treino atual
-                const currentDay = button.closest('.day-container');
+                const allDays = Array.from(document.querySelectorAll(".day-container"));
+                const currentDay = button.closest(".day-container");
                 const currentIndex = allDays.indexOf(currentDay);
 
-                // Incrementa contador salvo
-                let count = parseInt(localStorage.getItem('workoutCount') || 0);
+                // Atualiza contador
+                let count = parseInt(localStorage.getItem(STORAGE_KEY) || 0);
                 count++;
-                localStorage.setItem('workoutCount', count);
+                localStorage.setItem(STORAGE_KEY, count);
 
-                // Atualiza o contador na tela
-                const display = document.getElementById('workoutCounter');
+                // Mostra no ecrã
+                const display = document.getElementById("workoutCounter");
                 if (display) display.textContent = count;
 
-                // Remove o highlight anterior
-                allDays.forEach(day => day.classList.remove('highlighted'));
+                // Remove highlights antigos
+                allDays.forEach(day => day.classList.remove("highlighted"));
 
-                // Próximo treino (reinicia ciclo se for o último)
+                // Determina próximo treino (reinicia ciclo se for o último)
                 let nextIndex = currentIndex + 1;
                 if (nextIndex >= allDays.length) nextIndex = 0;
 
-                // Destaca o próximo treino
                 const nextDay = allDays[nextIndex];
-                nextDay.classList.add('highlighted');
-                nextDay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                nextDay.classList.add("highlighted");
+                nextDay.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
 
+            function resetWorkoutProgress() {
+                // Remove o contador desta página
+                localStorage.removeItem(STORAGE_KEY);
+
+                // Zera o número na tela
+                const display = document.getElementById("workoutCounter");
+                if (display) display.textContent = 0;
+
+                // Remove destaques
+                document.querySelectorAll(".day-container").forEach(day => {
+                    day.classList.remove("highlighted");
+                });
+
+                alert("🔄 Progresso desta página foi resetado!");
             }
 
             function toggleDay(header) {
