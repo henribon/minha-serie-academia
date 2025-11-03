@@ -1508,14 +1508,8 @@
 
         <script>
 
-            const STORAGE_KEY = "workoutCount_" + window.location.pathname;
-
-            // Atualiza contador na tela ao carregar
-            document.addEventListener("DOMContentLoaded", () => {
-                const count = localStorage.getItem(STORAGE_KEY) || 0;
-                const display = document.getElementById("workoutCounter");
-                if (display) display.textContent = count;
-            });
+            const STORAGE_KEY = "henrique_workoutCount";
+            const HIGHLIGHT_KEY = "henrique_highlightedDay";
 
             function incrementWorkoutCounter(button) {
                 const allDays = Array.from(document.querySelectorAll(".day-container"));
@@ -1531,6 +1525,10 @@
                 const display = document.getElementById("workoutCounter");
                 if (display) display.textContent = count;
 
+                // Adiciona animação ao botão
+                button.classList.add('clicked');
+                setTimeout(() => button.classList.remove('clicked'), 500);
+
                 // Remove highlights antigos
                 allDays.forEach(day => day.classList.remove("highlighted"));
 
@@ -1538,14 +1536,28 @@
                 let nextIndex = currentIndex + 1;
                 if (nextIndex >= allDays.length) nextIndex = 0;
 
+                // Salva o índice do próximo treino
+                localStorage.setItem(HIGHLIGHT_KEY, nextIndex);
+
                 const nextDay = allDays[nextIndex];
                 nextDay.classList.add("highlighted");
                 nextDay.scrollIntoView({ behavior: "smooth", block: "center" });
             }
 
+            function loadHighlightedDay() {
+                const highlightIndex = parseInt(localStorage.getItem(HIGHLIGHT_KEY));
+                if (!isNaN(highlightIndex)) {
+                    const allDays = Array.from(document.querySelectorAll(".day-container"));
+                    if (allDays[highlightIndex]) {
+                        allDays[highlightIndex].classList.add("highlighted");
+                    }
+                }
+            }
+
             function resetWorkoutProgress() {
-                // Remove o contador desta página
+                // Remove o contador e highlight
                 localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(HIGHLIGHT_KEY);
 
                 // Zera o número na tela
                 const display = document.getElementById("workoutCounter");
@@ -1556,7 +1568,7 @@
                     day.classList.remove("highlighted");
                 });
 
-                alert("🔄 Progresso desta página foi resetado!");
+                alert("🔄 Progresso foi resetado!");
             }
 
             function toggleDay(header) {
@@ -1581,8 +1593,17 @@
             // Drag and Drop functionality
             let draggedElement = null;
 
-            // Carregar ordem salva ao carregar a página
+            // Carregar tudo ao carregar a página - CONSOLIDADO
             document.addEventListener('DOMContentLoaded', function () {
+                // Carregar contador de treinos
+                const count = localStorage.getItem(STORAGE_KEY) || 0;
+                const display = document.getElementById('workoutCounter');
+                if (display) display.textContent = count;
+
+                // Carregar highlight do próximo treino
+                loadHighlightedDay();
+
+                // Outras funcionalidades
                 loadWorkoutOrder();
                 initializeDragAndDrop();
                 updateProgressAlert();
@@ -1590,12 +1611,6 @@
                 loadWeight();
                 updateProgressBar();
                 checkDismissedSections();
-            });
-
-            document.addEventListener('DOMContentLoaded', () => {
-                const count = localStorage.getItem('workoutCount') || 0;
-                const display = document.getElementById('workoutCounter');
-                if (display) display.textContent = count;
             });
 
             function initializeDragAndDrop() {
