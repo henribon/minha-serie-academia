@@ -279,11 +279,16 @@
 
         .goal {
             background: linear-gradient(135deg, #e9d5ff 0%, #ddd6fe 100%);
-            padding: 18px 25px;
+            padding: 18px 50px 18px 25px;
             text-align: center;
             border-left: 5px solid #9333ea;
             margin: 20px 30px;
             border-radius: 10px;
+            position: relative;
+        }
+
+        .goal.hidden {
+            display: none;
         }
 
         .goal h3 {
@@ -299,11 +304,16 @@
 
         .start-date {
             background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
-            padding: 18px 25px;
+            padding: 18px 50px 18px 25px;
             text-align: center;
             border-left: 5px solid #7c3aed;
             margin: 20px 30px;
             border-radius: 10px;
+            position: relative;
+        }
+
+        .start-date.hidden {
+            display: none;
         }
 
         .start-date h3 {
@@ -316,6 +326,68 @@
             color: #555;
             font-size: 1em;
             font-weight: 600;
+        }
+
+        .dismissable-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.3em;
+            cursor: pointer;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .dismissable-close:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .goal .dismissable-close {
+            color: #6b21a8;
+        }
+
+        .start-date .dismissable-close {
+            color: #5b21b6;
+        }
+
+        .dismiss-all-container {
+            text-align: center;
+            margin: 15px 30px 0 30px;
+        }
+
+        .dismiss-all-btn {
+            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dismiss-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(135deg, #475569 0%, #334155 100%);
+        }
+
+        .dismiss-all-btn:active {
+            transform: translateY(0);
         }
 
         .alert-container {
@@ -701,6 +773,12 @@
             </div>
         </div>
 
+        <div class="dismiss-all-container">
+            <button class="dismiss-all-btn" onclick="dismissAllSections()" title="Fechar todas as mensagens e avisos">
+                🗑️ Limpar avisos
+            </button>
+        </div>
+
         <div class="progress-container">
             <div class="progress-box">
                 <div class="progress-header">
@@ -717,12 +795,14 @@
             </div>
         </div>
 
-        <div class="goal">
+        <div class="goal" id="goalSection">
+            <button class="dismissable-close" onclick="dismissSection('goalSection')" aria-label="Fechar objetivo">×</button>
             <h3>🎯 OBJETIVO</h3>
             <p>Ganho de massa muscular + 85kg</p>
         </div>
 
-        <div class="start-date">
+        <div class="start-date" id="startDateSection">
+            <button class="dismissable-close" onclick="dismissSection('startDateSection')" aria-label="Fechar data">×</button>
             <h3>📅 Início do Treino</h3>
             <p>30 de Outubro de 2025</p>
         </div>
@@ -1439,6 +1519,7 @@
             checkAlertStatus();
             loadWeight();
             updateProgressBar();
+            checkDismissedSections();
         });
 
         function initializeDragAndDrop() {
@@ -1682,6 +1763,43 @@
                 saveWeight();
             }
         });
+
+        // Sistema de Dismissal de Seções
+        function dismissSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.add('hidden');
+            localStorage.setItem(`henrique-${sectionId}-dismissed`, 'true');
+        }
+
+        function checkDismissedSections() {
+            const sections = ['goalSection', 'startDateSection'];
+            sections.forEach(sectionId => {
+                const isDismissed = localStorage.getItem(`henrique-${sectionId}-dismissed`);
+                if (isDismissed === 'true') {
+                    document.getElementById(sectionId).classList.add('hidden');
+                }
+            });
+        }
+
+        // Fechar todas as seções de uma vez
+        function dismissAllSections() {
+            const sections = ['goalSection', 'startDateSection', 'progressAlert'];
+            sections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section && !section.classList.contains('hidden')) {
+                    section.classList.add('hidden');
+                    localStorage.setItem(`henrique-${sectionId}-dismissed`, 'true');
+                }
+            });
+        }
+
+        // Função para restaurar seções (útil para testes)
+        function restoreSections() {
+            localStorage.removeItem('henrique-goalSection-dismissed');
+            localStorage.removeItem('henrique-startDateSection-dismissed');
+            localStorage.removeItem('henrique-progressAlert-closed');
+            location.reload();
+        }
     </script>
 </body>
 </html>
