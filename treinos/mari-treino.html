@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +36,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
 
@@ -48,7 +49,7 @@
 
         .header h1 {
             font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             margin-bottom: 8px;
         }
 
@@ -147,7 +148,7 @@
             background: white;
             padding: 20px 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .progress-header {
@@ -193,7 +194,7 @@
             color: white;
             font-weight: bold;
             font-size: 0.85em;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .modal {
@@ -204,7 +205,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.3s ease;
         }
 
@@ -218,7 +219,7 @@
             background: white;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             max-width: 400px;
             width: 90%;
             animation: slideUp 0.3s ease;
@@ -300,8 +301,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes slideUp {
@@ -309,6 +315,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -501,6 +508,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -606,7 +614,7 @@
         }
 
         .exercise-item:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .exercise-header {
@@ -711,7 +719,7 @@
             max-width: 100%;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .section-divider {
@@ -740,7 +748,7 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .exercise-link {
                 margin-left: 0;
                 margin-top: 8px;
@@ -752,6 +760,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -795,16 +804,23 @@
                     </div>
                 </div>
             </div>
+            <div class="workout-counter-box">
+                <div class="workout-counter-title">💪 Total de Treinos</div>
+                <div class="workout-counter-display" id="workoutCounter">0</div>
+                <div class="workout-counter-label">treinos realizados</div>
+            </div>
         </div>
 
         <div class="goal" id="goalSection">
-            <button class="dismissable-close" onclick="dismissSection('goalSection')" aria-label="Fechar objetivo">×</button>
+            <button class="dismissable-close" onclick="dismissSection('goalSection')"
+                aria-label="Fechar objetivo">×</button>
             <h3>🎯 OBJETIVO</h3>
             <p>Bundão gostoso + 65kg</p>
         </div>
 
         <div class="start-date" id="startDateSection">
-            <button class="dismissable-close" onclick="dismissSection('startDateSection')" aria-label="Fechar data">×</button>
+            <button class="dismissable-close" onclick="dismissSection('startDateSection')"
+                aria-label="Fechar data">×</button>
             <h3>📅 Início do Treino</h3>
             <p>30 de Outubro de 2025</p>
         </div>
@@ -848,7 +864,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/11/dumbbell-goblet-squat.gif" alt="Agachamento Taça Tutorial">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/11/dumbbell-goblet-squat.gif"
+                                        alt="Agachamento Taça Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -866,7 +883,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://media.tenor.com/xJh_-w_SxckAAAAM/leg-press.gif" alt="Leg Press 45 Tutorial">
+                                    <img src="https://media.tenor.com/xJh_-w_SxckAAAAM/leg-press.gif"
+                                        alt="Leg Press 45 Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -884,7 +902,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i.makeagif.com/media/12-21-2023/7z6VDl.gif" alt="Avanço no Smith Tutorial">
+                                    <img src="https://i.makeagif.com/media/12-21-2023/7z6VDl.gif"
+                                        alt="Avanço no Smith Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -902,7 +921,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i.pinimg.com/originals/33/24/5f/33245f9b08426eb8d0860f9261111283.gif" alt="Extensora Articulada Tutorial">
+                                    <img src="https://i.pinimg.com/originals/33/24/5f/33245f9b08426eb8d0860f9261111283.gif"
+                                        alt="Extensora Articulada Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -920,11 +940,14 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/10/Dumbbell-Bulgarian-Split-Squat.gif" alt="Búlgaro Tutorial">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/10/Dumbbell-Bulgarian-Split-Squat.gif"
+                                        alt="Búlgaro Tutorial">
                                 </div>
                             </div>
                         </li>
                     </ul>
+                </div>
+                <div class="workout-footer">
                     <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
                         ✅ Malhei Hoje
                     </button>
@@ -956,7 +979,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://image.tuasaude.com/media/article/uh/yp/puxada-frontal_75625.gif?width=686&height=487" alt="Puxada Aberta Tutorial">
+                                    <img src="https://image.tuasaude.com/media/article/uh/yp/puxada-frontal_75625.gif?width=686&height=487"
+                                        alt="Puxada Aberta Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -974,7 +998,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://media.tenor.com/_UNWN5PNy0EAAAAM/remada-fechada-triangulo.gif" alt="Remada Baixa Triângulo Tutorial">
+                                    <img src="https://media.tenor.com/_UNWN5PNy0EAAAAM/remada-fechada-triangulo.gif"
+                                        alt="Remada Baixa Triângulo Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -992,7 +1017,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://media.tenor.com/ZA7d-cdoYEIAAAAM/bentoverrows.gif" alt="Remada Serrote Tutorial">
+                                    <img src="https://media.tenor.com/ZA7d-cdoYEIAAAAM/bentoverrows.gif"
+                                        alt="Remada Serrote Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1010,7 +1036,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/rosca-biceps-martelo-com-halteres.gif" alt="Rosca Martelo Tutorial">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/rosca-biceps-martelo-com-halteres.gif"
+                                        alt="Rosca Martelo Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1028,11 +1055,14 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/ombros-elevacao-lateral-de-ombros-com-halteres.gif" alt="Elevação Lateral Tutorial">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/ombros-elevacao-lateral-de-ombros-com-halteres.gif"
+                                        alt="Elevação Lateral Tutorial">
                                 </div>
                             </div>
                         </li>
                     </ul>
+                </div>
+                <div class="workout-footer">
                     <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
                         ✅ Malhei Hoje
                     </button>
@@ -1065,7 +1095,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i.pinimg.com/originals/4e/17/b8/4e17b88b6b11c54155939c0a5b3c3381.gif" alt="Abdutora Tutorial">
+                                    <img src="https://i.pinimg.com/originals/4e/17/b8/4e17b88b6b11c54155939c0a5b3c3381.gif"
+                                        alt="Abdutora Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1079,12 +1110,14 @@
                                     <div class="exercise-link">
                                         <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
                                     </div>
-                                    <div class="exercise-note">📈 Progressão de carga entre as séries + 4 segundos de isometria agachado</div>
+                                    <div class="exercise-note">📈 Progressão de carga entre as séries + 4 segundos de
+                                        isometria agachado</div>
                                 </div>
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i.pinimg.com/originals/c9/86/f8/c986f8c571184841e8a0e0e95e94963a.gif" alt="Agachamento Livre Tutorial">
+                                    <img src="https://i.pinimg.com/originals/c9/86/f8/c986f8c571184841e8a0e0e95e94963a.gif"
+                                        alt="Agachamento Livre Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1102,7 +1135,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i0.wp.com/meutreinador.com/wp-content/uploads/2023/12/60_Gluteos-no-Cabo-Posicao-Curvada.gif?fit=1080%2C1080&ssl=1" alt="Extensão de Quadril Tutorial">
+                                    <img src="https://i0.wp.com/meutreinador.com/wp-content/uploads/2023/12/60_Gluteos-no-Cabo-Posicao-Curvada.gif?fit=1080%2C1080&ssl=1"
+                                        alt="Extensão de Quadril Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1116,12 +1150,14 @@
                                     <div class="exercise-link">
                                         <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
                                     </div>
-                                    <div class="exercise-note">🔥 Contrair 10 vezes no ponto isométrico do exercício (não faço na barra porque preguiça)</div>
+                                    <div class="exercise-note">🔥 Contrair 10 vezes no ponto isométrico do exercício
+                                        (não faço na barra porque preguiça)</div>
                                 </div>
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://treinoemalta.com.br/wp-content/uploads/2023/07/Elevacao-Pelvica.gif" alt="Elevação Pélvica Tutorial">
+                                    <img src="https://treinoemalta.com.br/wp-content/uploads/2023/07/Elevacao-Pelvica.gif"
+                                        alt="Elevação Pélvica Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1140,7 +1176,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i.makeagif.com/media/3-14-2023/seLxLg.gif" alt="4 Apoios Tutorial">
+                                    <img src="https://i.makeagif.com/media/3-14-2023/seLxLg.gif"
+                                        alt="4 Apoios Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1163,6 +1200,8 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+                <div class="workout-footer">
                     <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
                         ✅ Malhei Hoje
                     </button>
@@ -1194,7 +1233,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/supino-inclinado-com-halteres.gif" alt="Supino Inclinado Tutorial">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/supino-inclinado-com-halteres.gif"
+                                        alt="Supino Inclinado Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1212,7 +1252,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/04/lever-chest-press-.gif" alt="Supino Reto Máquina Tutorial">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2024/04/lever-chest-press-.gif"
+                                        alt="Supino Reto Máquina Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1230,7 +1271,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i.pinimg.com/originals/6c/b6/80/6cb680e439ea1499a3e9ea01b9ce3f96.gif" alt="Pullover Tutorial">
+                                    <img src="https://i.pinimg.com/originals/6c/b6/80/6cb680e439ea1499a3e9ea01b9ce3f96.gif"
+                                        alt="Pullover Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1248,7 +1290,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2021/07/triceps-puxada-no-pulley.gif" alt="Tríceps com Barra W Tutorial">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2021/07/triceps-puxada-no-pulley.gif"
+                                        alt="Tríceps com Barra W Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1266,7 +1309,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2021/03/rosca-triceps-testa-deitado-no-banco-com-barra-tradicional.gif" alt="Tríceps Testa Tutorial">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2021/03/rosca-triceps-testa-deitado-no-banco-com-barra-tradicional.gif"
+                                        alt="Tríceps Testa Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1284,11 +1328,14 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/desenvolvimento-para-ombros-com-halteres.gif" alt="Desenvolvimento Ombro Tutorial">
+                                    <img src="https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/desenvolvimento-para-ombros-com-halteres.gif"
+                                        alt="Desenvolvimento Ombro Tutorial">
                                 </div>
                             </div>
                         </li>
                     </ul>
+                </div>
+                <div class="workout-footer">
                     <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
                         ✅ Malhei Hoje
                     </button>
@@ -1338,7 +1385,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://media.tenor.com/fj_cZPprAyMAAAAM/gym.gif" alt="Mesa Flexora Tutorial">
+                                    <img src="https://media.tenor.com/fj_cZPprAyMAAAAM/gym.gif"
+                                        alt="Mesa Flexora Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1356,7 +1404,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i.pinimg.com/originals/4e/17/b8/4e17b88b6b11c54155939c0a5b3c3381.gif" alt="Cadeira Adutora Tutorial">
+                                    <img src="https://i.pinimg.com/originals/4e/17/b8/4e17b88b6b11c54155939c0a5b3c3381.gif"
+                                        alt="Cadeira Adutora Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1374,7 +1423,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://i.pinimg.com/originals/82/4d/fd/824dfd405284597cd20e8a55233e2d77.gif" alt="Stiff Tutorial">
+                                    <img src="https://i.pinimg.com/originals/82/4d/fd/824dfd405284597cd20e8a55233e2d77.gif"
+                                        alt="Stiff Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1392,7 +1442,8 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoicGurZMK7B0XntzXrXafT7J8blkV6FHBlA&s" alt="Cadeira Flexora Inclinada Tutorial">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoicGurZMK7B0XntzXrXafT7J8blkV6FHBlA&s"
+                                        alt="Cadeira Flexora Inclinada Tutorial">
                                 </div>
                             </div>
                         </li>
@@ -1410,17 +1461,21 @@
                             </div>
                             <div class="gif-container">
                                 <div class="gif-wrapper">
-                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/leg-press-calf-raise.gif" alt="Panturrilha no Leg 45 Tutorial">
+                                    <img src="https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/leg-press-calf-raise.gif"
+                                        alt="Panturrilha no Leg 45 Tutorial">
                                 </div>
                             </div>
                         </li>
                     </ul>
-                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                        ✅ Malhei Hoje
-                    </button>
                 </div>
             </div>
-            
+
+        </div>
+
+        <div class="workout-footer">
+            <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                ✅ Malhei Hoje
+            </button>
         </div>
 
         <div class="footer">
@@ -1437,7 +1492,8 @@
                 <div class="modal-subtitle">Digite seu peso atual em kg</div>
             </div>
             <div class="weight-input-group">
-                <input type="number" class="weight-input" id="weightInput" placeholder="65.0" step="0.1" min="40" max="200">
+                <input type="number" class="weight-input" id="weightInput" placeholder="65.0" step="0.1" min="40"
+                    max="200">
             </div>
             <div class="modal-buttons">
                 <button class="modal-btn modal-btn-secondary" onclick="closeWeightModal()">Cancelar</button>
@@ -1451,7 +1507,8 @@
         function resetProgress() {
             localStorage.removeItem('workoutCount');
 
-            document.querySelectorAll('.day-container').forEach(day => {day.classList.remove('highlighted');
+            document.querySelectorAll('.day-container').forEach(day => {
+                day.classList.remove('highlighted');
             });
 
             alert("✅ Progresso de treinos resetado! Pronto para recomeçar!");
@@ -1460,23 +1517,33 @@
 
         function incrementWorkoutCounter(button) {
 
+            // Pega todos os dias de treino
             const allDays = Array.from(document.querySelectorAll('.day-container'));
+
+            // Treino atual
             const currentDay = button.closest('.day-container');
             const currentIndex = allDays.indexOf(currentDay);
 
-            let count = localStorage.getItem('workoutCount') || 0;
+            // Incrementa contador salvo
+            let count = parseInt(localStorage.getItem('workoutCount') || 0);
             count++;
             localStorage.setItem('workoutCount', count);
 
+            // Atualiza o contador na tela
+            const display = document.getElementById('workoutCounter');
+            if (display) display.textContent = count;
+
+            // Remove o highlight anterior
             allDays.forEach(day => day.classList.remove('highlighted'));
 
-            const nextDay = allDays[currentIndex + 1];
-            if (nextDay) {
-                nextDay.classList.add('highlighted');
-                nextDay.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                alert("🎉 Parabéns! Terminaste todos os treinos!");
-             }
+            // Próximo treino (reinicia ciclo se for o último)
+            let nextIndex = currentIndex + 1;
+            if (nextIndex >= allDays.length) nextIndex = 0;
+
+            // Destaca o próximo treino
+            const nextDay = allDays[nextIndex];
+            nextDay.classList.add('highlighted');
+            nextDay.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         function toggleDay(header) {
@@ -1502,7 +1569,7 @@
         let draggedElement = null;
 
         // Carregar ordem salva ao carregar a página
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadWorkoutOrder();
             initializeDragAndDrop();
             updateProgressAlert();
@@ -1740,7 +1807,7 @@
         }
 
         // Fechar modal clicando fora
-        window.addEventListener('click', function(event) {
+        window.addEventListener('click', function (event) {
             const modal = document.getElementById('weightModal');
             if (event.target === modal) {
                 closeWeightModal();
@@ -1748,7 +1815,7 @@
         });
 
         // Salvar com Enter
-        document.getElementById('weightInput').addEventListener('keypress', function(event) {
+        document.getElementById('weightInput').addEventListener('keypress', function (event) {
             if (event.key === 'Enter') {
                 saveWeight();
             }
@@ -1792,4 +1859,5 @@
         }
     </script>
 </body>
+
 </html>
