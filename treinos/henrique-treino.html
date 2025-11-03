@@ -1479,45 +1479,43 @@
                     </button>
                 </div>
             </div>
-    
-        <div class="footer">
-            <p>💪 Foco, disciplina e resultados! 💪</p>
-            <button class="reset-btn" onclick="resetWorkoutProgress()">🔄 Resetar Dias</button>
-        </div>
-    </div>
 
-    <!-- Modal de Atualização de Peso -->
-    <div class="modal" id="weightModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">⚖️ Atualizar Peso</div>
-                <div class="modal-subtitle">Digite seu peso atual em kg</div>
-            </div>
-            <div class="weight-input-group">
-                <input type="number" class="weight-input" id="weightInput" placeholder="85.0" step="0.1" min="40"
-                    max="200">
-            </div>
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-secondary" onclick="closeWeightModal()">Cancelar</button>
-                <button class="modal-btn modal-btn-primary" onclick="saveWeight()">Salvar</button>
+            <div class="footer">
+                <p>💪 Foco, disciplina e resultados! 💪</p>
+                <button class="reset-btn" onclick="resetWorkoutProgress()">🔄 Resetar Dias</button>
             </div>
         </div>
-    </div>
 
-    <script>
+        <!-- Modal de Atualização de Peso -->
+        <div class="modal" id="weightModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">⚖️ Atualizar Peso</div>
+                    <div class="modal-subtitle">Digite seu peso atual em kg</div>
+                </div>
+                <div class="weight-input-group">
+                    <input type="number" class="weight-input" id="weightInput" placeholder="85.0" step="0.1" min="40"
+                        max="200">
+                </div>
+                <div class="modal-buttons">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeWeightModal()">Cancelar</button>
+                    <button class="modal-btn modal-btn-primary" onclick="saveWeight()">Salvar</button>
+                </div>
+            </div>
+        </div>
 
-        function resetProgress() {
-            localStorage.removeItem('workoutCount');
+        <script>
 
-            document.querySelectorAll('.day-container').forEach(day => {
-                day.classList.remove('highlighted');
-            });
+            function resetProgress() {
+                localStorage.removeItem('workoutCount');
 
-            alert("✅ Progresso de treinos resetado! Pronto para recomeçar!");
+                document.querySelectorAll('.day-container').forEach(day => {
+                    day.classList.remove('highlighted');
+                });
 
-        }
+                alert("✅ Progresso de treinos resetado! Pronto para recomeçar!");
 
-        function incrementWorkoutCounter(button) {
+            }
 
             function incrementWorkoutCounter(button) {
 
@@ -1582,6 +1580,12 @@
                 loadWeight();
                 updateProgressBar();
                 checkDismissedSections();
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const count = localStorage.getItem('workoutCount') || 0;
+                const display = document.getElementById('workoutCounter');
+                if (display) display.textContent = count;
             });
 
             function initializeDragAndDrop() {
@@ -1862,7 +1866,7 @@
                 localStorage.removeItem('henrique-progressAlert-closed');
                 location.reload();
             }
-    </script>
+        </script>
 </body>
 
 </html>

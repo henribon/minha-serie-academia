@@ -1579,6 +1579,13 @@
             checkDismissedSections();
         });
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const count = localStorage.getItem('workoutCount') || 0;
+            const display = document.getElementById('workoutCounter');
+            if (display) display.textContent = count;
+        });
+
+
         function initializeDragAndDrop() {
             const containers = document.querySelectorAll('.day-container');
 
