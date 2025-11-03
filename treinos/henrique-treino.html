@@ -824,6 +824,44 @@
                 padding-left: 0;
             }
         }
+
+        .day-container.highlighted {
+            border: 3px solid #ffd700;
+            background-color: #fffbe6;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            position: relative;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .day-container.highlighted::before {
+            content: "⭐ Treino de Hoje";
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            background: #ffd700;
+            color: #222;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
+        }
+
+        .reset-btn {
+            background-color: #e63946;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .reset-btn:hover {
+            background-color: #c9184a;
+        }
+
     </style>
 </head>
 <body>
@@ -1080,10 +1118,10 @@
                             </div>
                         </li>
                     </ul>
+                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                        ✅ Malhei Hoje
+                    </button>
                 </div>
-                <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                    ✅ Malhei Hoje
-                </button>
             </div>
 
             <!-- DIA 2 -->
@@ -1264,9 +1302,7 @@
                         </li>
                     </ul>
                 </div>
-                <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                    ✅ Malhei Hoje
-                </button>
+                
             </div>
 
             <!-- DIA 3 -->
@@ -1390,10 +1426,10 @@
                             </div>
                         </li>
                     </ul>
+                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                        ✅ Malhei Hoje
+                    </button>
                 </div>
-                <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                    ✅ Malhei Hoje
-                </button>
             </div>
 
             <!-- ABDOMINAIS -->
@@ -1470,10 +1506,10 @@
                         <h4>💡 Como Usar</h4>
                         <p>Faça 1 exercício de abdômen ao final de cada treino em sistema de rodízio. Isso garante trabalho completo do core!</p>
                     </div>
-                </div>
-                <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
                     ✅ Malhei Hoje
-                </button>
+                    </button>
+                </div>
             </div>
 
             <!-- FORTALECIMENTO DE PULSO -->
@@ -1563,21 +1599,23 @@
                                 </div>
                             </div>
                         </li>
+                        
                     </ul>
+                    <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
+                    ✅ Malhei Hoje
+                    </button>
 
                     <div class="tip-box">
                         <h4>💡 Quando Fazer</h4>
                         <p>Faça 2-3x por semana, de preferência após o treino de costas/bíceps ou em dias separados. Use pesos leves e foque no movimento controlado. Isso vai fortalecer os pulsos e reduzir as dores!</p>
                     </div>
                 </div>
-                <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-                    ✅ Malhei Hoje
-                </button>
             </div>
         </div>
 
         <div class="footer">
             <p>💪 Foco, disciplina e resultados! 💪</p>
+            <button class="reset-btn" onclick="resetWorkoutProgress()">🔄 Resetar Dias</button>
         </div>
     </div>
 
@@ -1599,6 +1637,38 @@
     </div>
 
     <script>
+        
+        function resetProgress() {
+            localStorage.removeItem('workoutCount');
+
+            document.querySelectorAll('.day-container').forEach(day => {day.classList.remove('highlighted');
+            });
+
+            alert("✅ Progresso de treinos resetado! Pronto para recomeçar!");
+
+        }
+
+        function incrementWorkoutCounter(button) {
+
+            const allDays = Array.from(document.querySelectorAll('.day-container'));
+            const currentDay = button.closest('.day-container');
+            const currentIndex = allDays.indexOf(currentDay);
+
+            let count = localStorage.getItem('workoutCount') || 0;
+            count++;
+            localStorage.setItem('workoutCount', count);
+
+            allDays.forEach(day => day.classList.remove('highlighted'));
+
+            const nextDay = allDays[currentIndex + 1];
+            if (nextDay) {
+                nextDay.classList.add('highlighted');
+                nextDay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                alert("🎉 Parabéns! Terminaste todos os treinos!");
+             }
+        }
+
         function toggleDay(header) {
             const dayContent = header.nextElementSibling;
             const arrow = header.querySelector('.day-arrow');
