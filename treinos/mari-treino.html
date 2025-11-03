@@ -130,6 +130,29 @@
 
         .day-container {
             margin-bottom: 20px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+
+        .day-container.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+
+        .day-container.drag-over {
+            border-top: 4px solid #10b981;
+            padding-top: 10px;
+        }
+
+        .drag-handle {
+            display: inline-block;
+            cursor: grab;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
         }
 
         .day-header {
@@ -378,11 +401,12 @@
             <p>30 de Outubro de 2025</p>
         </div>
 
-        <div class="workout-section">
+        <div class="workout-section" id="workoutSection">
             <!-- DIA 1 - QUADRÍCEPS -->
-            <div class="day-container">
+            <div class="day-container" draggable="true">
                 <div class="day-header" onclick="toggleDay(this)">
                     <div class="day-title">
+                        <span class="drag-handle">⋮⋮</span>
                         <span>🦵</span>
                         <span>Dia 1 - Quadríceps</span>
                     </div>
@@ -484,9 +508,10 @@
             </div>
 
             <!-- DIA 2 - MEMBROS SUPERIORES 1 -->
-            <div class="day-container">
+            <div class="day-container" draggable="true">
                 <div class="day-header" onclick="toggleDay(this)">
                     <div class="day-title">
+                        <span class="drag-handle">⋮⋮</span>
                         <span>💪</span>
                         <span>Dia 2 - Membros Superiores 1</span>
                     </div>
@@ -588,9 +613,10 @@
             </div>
 
             <!-- DIA 3 - DIA DE BUNDA -->
-            <div class="day-container">
+            <div class="day-container" draggable="true">
                 <div class="day-header" onclick="toggleDay(this)">
                     <div class="day-title">
+                        <span class="drag-handle">⋮⋮</span>
                         <span>🍑</span>
                         <span>Dia 3 - Dia de Bunda</span>
                     </div>
@@ -714,9 +740,10 @@
             </div>
 
             <!-- DIA 4 - MEMBROS SUPERIORES 2 -->
-            <div class="day-container">
+            <div class="day-container" draggable="true">
                 <div class="day-header" onclick="toggleDay(this)">
                     <div class="day-title">
+                        <span class="drag-handle">⋮⋮</span>
                         <span>💪</span>
                         <span>Dia 4 - Membros Superiores 2</span>
                     </div>
@@ -836,9 +863,10 @@
             </div>
 
             <!-- DIA 5 - POSTERIOR -->
-            <div class="day-container">
+            <div class="day-container" draggable="true">
                 <div class="day-header" onclick="toggleDay(this)">
                     <div class="day-title">
+                        <span class="drag-handle">⋮⋮</span>
                         <span>🔥</span>
                         <span>Dia 5 - Posterior</span>
                     </div>
@@ -968,7 +996,7 @@
         function toggleDay(header) {
             const dayContent = header.nextElementSibling;
             const arrow = header.querySelector('.day-arrow');
-            
+
             dayContent.classList.toggle('active');
             arrow.classList.toggle('active');
             header.classList.toggle('active');
@@ -976,12 +1004,132 @@
 
         function toggleGif(button, event) {
             event.stopPropagation();
-            
+
             const exerciseItem = button.closest('.exercise-item');
             const gifContainer = exerciseItem.querySelector('.gif-container');
-            
+
             gifContainer.classList.toggle('active');
             button.classList.toggle('active');
+        }
+
+        // Drag and Drop functionality
+        let draggedElement = null;
+
+        // Carregar ordem salva ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWorkoutOrder();
+            initializeDragAndDrop();
+        });
+
+        function initializeDragAndDrop() {
+            const containers = document.querySelectorAll('.day-container');
+
+            containers.forEach(container => {
+                container.addEventListener('dragstart', handleDragStart);
+                container.addEventListener('dragend', handleDragEnd);
+                container.addEventListener('dragover', handleDragOver);
+                container.addEventListener('drop', handleDrop);
+                container.addEventListener('dragenter', handleDragEnter);
+                container.addEventListener('dragleave', handleDragLeave);
+            });
+        }
+
+        function handleDragStart(e) {
+            draggedElement = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+
+            // Remove todas as classes drag-over
+            document.querySelectorAll('.day-container').forEach(container => {
+                container.classList.remove('drag-over');
+            });
+
+            // Salva a nova ordem
+            saveWorkoutOrder();
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (this !== draggedElement) {
+                this.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (draggedElement !== this) {
+                const workoutSection = document.getElementById('workoutSection');
+                const allContainers = [...workoutSection.children];
+                const draggedIndex = allContainers.indexOf(draggedElement);
+                const targetIndex = allContainers.indexOf(this);
+
+                if (draggedIndex < targetIndex) {
+                    this.parentNode.insertBefore(draggedElement, this.nextSibling);
+                } else {
+                    this.parentNode.insertBefore(draggedElement, this);
+                }
+            }
+
+            return false;
+        }
+
+        function saveWorkoutOrder() {
+            const workoutSection = document.getElementById('workoutSection');
+            const containers = workoutSection.querySelectorAll('.day-container');
+            const order = [];
+
+            containers.forEach((container, index) => {
+                const title = container.querySelector('.day-title span:last-child').textContent;
+                order.push(title);
+            });
+
+            localStorage.setItem('mari-workout-order', JSON.stringify(order));
+            console.log('Ordem salva:', order);
+        }
+
+        function loadWorkoutOrder() {
+            const savedOrder = localStorage.getItem('mari-workout-order');
+            if (!savedOrder) return;
+
+            const order = JSON.parse(savedOrder);
+            const workoutSection = document.getElementById('workoutSection');
+            const containers = [...workoutSection.querySelectorAll('.day-container')];
+
+            // Criar um mapa de título -> elemento
+            const containerMap = new Map();
+            containers.forEach(container => {
+                const title = container.querySelector('.day-title span:last-child').textContent;
+                containerMap.set(title, container);
+            });
+
+            // Reordenar baseado na ordem salva
+            order.forEach(title => {
+                const container = containerMap.get(title);
+                if (container) {
+                    workoutSection.appendChild(container);
+                }
+            });
+
+            console.log('Ordem carregada:', order);
         }
     </script>
 </body>
