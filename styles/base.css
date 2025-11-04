@@ -844,19 +844,392 @@ body {
     font-size: 0.9em;
 }
 
+/* ========================================
+   MOBILE OPTIMIZATIONS
+   ======================================== */
+
+/* Tablets and smaller */
 @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        border-radius: 15px;
+    }
+
+    /* Header improvements */
+    .header {
+        padding: 30px 20px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    .header .subtitle {
+        font-size: 1em;
+    }
+
+    /* Stats improvements */
+    .stats {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 15px;
+    }
+
+    .stat-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+    }
+
+    .stat-label {
+        text-align: left;
+        margin-bottom: 0;
+    }
+
+    .stat-value {
+        font-size: 1.4em;
+    }
+
+    .weight-update-btn {
+        margin-top: 0;
+        margin-left: 10px;
+    }
+
+    /* Progress container */
+    .progress-container {
+        margin: 15px 20px;
+    }
+
+    .progress-box {
+        padding: 20px 15px;
+    }
+
+    /* Workout section */
+    .workout-section {
+        padding: 20px 15px;
+    }
+
+    /* Day containers */
+    .day-container {
+        margin-bottom: 15px;
+    }
+
+    .day-header {
+        padding: 18px 15px;
+    }
+
+    .day-title {
+        font-size: 1.3em;
+        gap: 8px;
+    }
+
+    .day-content.active {
+        padding: 20px 15px;
+    }
+
+    /* Exercise items */
+    .exercise-item {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
     .exercise-content {
         flex-direction: column;
         align-items: flex-start;
+        gap: 10px;
+    }
+
+    .exercise-name {
+        font-size: 1.05em;
+    }
+
+    .exercise-reps {
+        padding: 6px 14px;
+        font-size: 0.95em;
     }
 
     .exercise-link {
         margin-left: 0;
         margin-top: 8px;
+        width: 100%;
+    }
+
+    .tutorial-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+        font-size: 1em;
     }
 
     .exercise-note {
         padding-left: 0;
+        font-size: 0.9em;
+    }
+
+    /* Workout done button */
+    .workout-done-btn {
+        padding: 16px 20px;
+        font-size: 1em;
+    }
+
+    /* Goal and date sections */
+    .goal,
+    .start-date,
+    .alert {
+        margin: 15px 20px;
+        padding: 15px 45px 15px 20px;
+    }
+
+    .goal h3,
+    .start-date h3,
+    .alert-title {
+        font-size: 1em;
+    }
+
+    /* Modal improvements */
+    .modal-content {
+        padding: 25px 20px;
+        width: 95%;
+    }
+
+    .modal-title {
+        font-size: 1.3em;
+    }
+
+    .weight-input {
+        padding: 12px;
+        font-size: 1.3em;
+    }
+
+    .modal-btn {
+        padding: 14px;
+        font-size: 1em;
+    }
+
+    /* Buttons */
+    .reset-btn,
+    .dismiss-all-btn {
+        padding: 12px 20px;
+        font-size: 0.95em;
+        min-height: 44px;
+    }
+
+    .dismissable-close,
+    .alert-close {
+        width: 32px;
+        height: 32px;
+        font-size: 1.5em;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .container {
+        border-radius: 12px;
+    }
+
+    /* Header */
+    .header {
+        padding: 25px 15px;
+    }
+
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    /* Stats - stack vertically with more space */
+    .stats {
+        gap: 12px;
+        padding: 15px 10px;
+    }
+
+    .stat-box {
+        padding: 12px;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .stat-label {
+        text-align: center;
+    }
+
+    .weight-update-btn {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Progress */
+    .progress-container {
+        margin: 15px 10px;
+    }
+
+    .progress-circle-container {
+        width: 180px;
+        height: 180px;
+    }
+
+    .progress-weight {
+        font-size: 1.8em;
+    }
+
+    .progress-percentage {
+        font-size: 1.3em;
+    }
+
+    .workout-counter-display {
+        font-size: 3.5em;
+    }
+
+    /* Workout section */
+    .workout-section {
+        padding: 15px 10px;
+    }
+
+    /* Day containers - more breathing room */
+    .day-header {
+        padding: 15px 12px;
+    }
+
+    .day-title {
+        font-size: 1.1em;
+        letter-spacing: 1px;
+    }
+
+    .day-content.active {
+        padding: 15px 10px;
+    }
+
+    /* Exercise items - bigger touch targets */
+    .exercise-item {
+        padding: 15px 12px;
+    }
+
+    .exercise-number {
+        width: 32px;
+        height: 32px;
+        font-size: 1em;
+        margin-right: 12px;
+    }
+
+    .exercise-name {
+        font-size: 1em;
+        width: 100%;
+    }
+
+    .exercise-reps {
+        width: 100%;
+        text-align: center;
+        padding: 8px 12px;
+    }
+
+    .tutorial-btn {
+        padding: 12px 16px;
+        font-size: 1em;
+        min-height: 48px;
+    }
+
+    /* Buttons - bigger for easier tapping */
+    .workout-done-btn {
+        padding: 18px 20px;
+        font-size: 1.05em;
+        min-height: 56px;
+    }
+
+    /* Sections */
+    .goal,
+    .start-date,
+    .alert {
+        margin: 12px 10px;
+        padding: 12px 40px 12px 15px;
+    }
+
+    .dismissable-close {
+        right: 8px;
+        top: 8px;
+    }
+
+    /* Drag handle - hide on mobile for cleaner look */
+    .drag-handle {
+        font-size: 1em;
+        margin-right: 5px;
+    }
+
+    /* Modal */
+    .modal-content {
+        padding: 20px 15px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .modal-btn {
+        width: 100%;
+        padding: 16px;
+        min-height: 48px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 15px;
+        font-size: 0.85em;
+    }
+
+    /* Reset section */
+    .reset-section {
+        padding: 20px 15px 15px;
+    }
+
+    .reset-btn {
+        width: 100%;
+        min-height: 48px;
+        font-size: 1em;
+    }
+
+    /* Highlighted day badge */
+    .day-container.highlighted::before {
+        font-size: 0.75em;
+        padding: 3px 8px;
+        top: 6px;
+        right: 10px;
+    }
+
+    /* GIF container */
+    .gif-wrapper {
+        padding: 10px;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+    .header h1 {
+        font-size: 1.6em;
+    }
+
+    .day-title {
+        font-size: 1em;
+    }
+
+    .progress-circle-container {
+        width: 160px;
+        height: 160px;
+    }
+
+    .workout-counter-display {
+        font-size: 3em;
     }
 }
 
