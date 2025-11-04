@@ -126,21 +126,103 @@
             border-top-color: #db2777;
         }
 
+        /* Tablet */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .cards-container {
+                gap: 25px;
+            }
+
+            .card {
+                padding: 35px 25px;
+            }
+        }
+
+        /* Mobile */
         @media (max-width: 640px) {
+            body {
+                padding: 15px 10px;
+            }
+
             h1 {
                 font-size: 2rem;
+                margin-bottom: 8px;
             }
 
             .subtitle {
                 font-size: 1rem;
+                margin-bottom: 30px;
+            }
+
+            .cards-container {
+                gap: 20px;
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 30px 20px;
+                min-height: 220px;
+            }
+
+            .card-icon {
+                font-size: 3.5rem;
+                margin-bottom: 15px;
             }
 
             .card-title {
                 font-size: 1.5rem;
             }
 
+            .card-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .card-details {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+
+            .footer {
+                margin-top: 30px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Small mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 8px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+
             .cards-container {
-                gap: 20px;
+                gap: 18px;
+            }
+
+            .card {
+                padding: 25px 18px;
+            }
+
+            .card-icon {
+                font-size: 3rem;
+            }
+
+            .card-title {
+                font-size: 1.4rem;
             }
         }
 
