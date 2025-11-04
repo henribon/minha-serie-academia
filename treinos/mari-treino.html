@@ -171,30 +171,60 @@
             color: #666;
         }
 
-        .progress-bar-container {
-            width: 100%;
-            height: 30px;
-            background: #e5e7eb;
-            border-radius: 15px;
-            overflow: hidden;
+        .progress-circle-container {
             position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
         }
 
-        .progress-bar {
+        .progress-circle {
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
-            transition: width 0.5s ease;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 10px;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: #e5e7eb;
+            stroke-width: 12;
+        }
+
+        .progress-circle-fill {
+            fill: none;
+            stroke: #f093fb;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 534;
+            stroke-dashoffset: 534;
+            transition: stroke-dashoffset 0.8s ease;
+        }
+
+        .progress-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-weight {
+            font-size: 2em;
+            font-weight: bold;
+            color: #f093fb;
+            line-height: 1;
         }
 
         .progress-percentage {
-            color: white;
+            font-size: 1.5em;
             font-weight: bold;
-            font-size: 0.85em;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .progress-text {
+            font-size: 0.9em;
+            color: #888;
         }
 
         .modal {
@@ -770,17 +800,19 @@
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 18px 20px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
-            margin: 15px 25px;
+            margin: 15px 0;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            font-size: 1em;
+            font-size: 1.1em;
+            width: 100%;
         }
 
         .workout-done-btn:hover {
@@ -794,6 +826,11 @@
 
         .workout-done-btn.clicked {
             animation: successPulse 0.5s ease;
+        }
+
+        .reset-section {
+            padding: 30px 30px 20px;
+            text-align: center;
         }
 
         .footer {
@@ -853,15 +890,16 @@
 
         <div class="progress-container">
             <div class="progress-box">
-                <div class="progress-header">
-                    <div class="progress-title">🎯 Progresso para a Meta</div>
-                    <div class="progress-stats">
-                        <span id="progressText">Faltam 12kg</span>
-                    </div>
-                </div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="progressBar" style="width: 0%">
-                        <span class="progress-percentage" id="progressPercentage">0%</span>
+                <div class="progress-title">🎯 Progresso para a Meta</div>
+                <div class="progress-circle-container">
+                    <svg class="progress-circle" viewBox="0 0 200 200">
+                        <circle class="progress-circle-bg" cx="100" cy="100" r="85"></circle>
+                        <circle class="progress-circle-fill" id="progressCircle" cx="100" cy="100" r="85"></circle>
+                    </svg>
+                    <div class="progress-center">
+                        <div class="progress-weight" id="currentWeightDisplay">77kg</div>
+                        <div class="progress-percentage" id="progressPercentage">0%</div>
+                        <div class="progress-text" id="progressText">Faltam 12kg</div>
                     </div>
                 </div>
             </div>
@@ -1538,9 +1576,12 @@
 
         </div>
 
+        <div class="reset-section">
+            <button class="reset-btn" onclick="resetWorkoutProgress()">🔄 Resetar Progresso</button>
+        </div>
+
         <div class="footer">
             <p>💪 Foco, força e determinação! 💪</p>
-            <button class="reset-btn" onclick="resetWorkoutProgress()">🔄 Resetar Dias</button>
         </div>
     </div>
 
@@ -1611,6 +1652,13 @@
         }
 
         function resetWorkoutProgress() {
+            // Confirmação antes de resetar
+            const confirmReset = confirm("⚠️ Você deseja MESMO resetar todo o progresso?\n\nIsso irá zerar:\n• Contador de treinos\n• Próximo treino destacado\n\nEsta ação não pode ser desfeita!");
+
+            if (!confirmReset) {
+                return; // Cancelou, não faz nada
+            }
+
             // Remove o contador e highlight
             localStorage.removeItem(STORAGE_KEY);
             localStorage.removeItem(HIGHLIGHT_KEY);
@@ -1876,24 +1924,30 @@
             let percentage = (lost / totalToLose) * 100;
             percentage = Math.max(0, Math.min(100, percentage)); // Limitar entre 0-100%
 
-            // Atualizar barra
-            const progressBar = document.getElementById('progressBar');
+            // Atualizar círculo de progresso
+            const progressCircle = document.getElementById('progressCircle');
             const progressPercentage = document.getElementById('progressPercentage');
             const progressText = document.getElementById('progressText');
+            const currentWeightDisplay = document.getElementById('currentWeightDisplay');
 
-            progressBar.style.width = percentage + '%';
+            // Circunferência do círculo = 2πr = 2 * π * 85 ≈ 534
+            const circumference = 534;
+            const offset = circumference - (circumference * percentage) / 100;
+
+            progressCircle.style.strokeDashoffset = offset;
             progressPercentage.textContent = percentage.toFixed(0) + '%';
+            currentWeightDisplay.textContent = currentWeight.toFixed(1) + 'kg';
 
-            // Atualizar texto
+            // Atualizar texto e cor
             if (currentWeight <= TARGET_WEIGHT) {
                 progressText.textContent = '🎉 Meta alcançada!';
-                progressBar.style.background = 'linear-gradient(90deg, #10b981 0%, #059669 100%)';
+                progressCircle.style.stroke = '#10b981';
             } else if (remaining > 0) {
                 progressText.textContent = `Faltam ${remaining.toFixed(1)}kg`;
-                progressBar.style.background = 'linear-gradient(90deg, #f093fb 0%, #f5576c 100%)';
+                progressCircle.style.stroke = '#f093fb';
             } else {
                 progressText.textContent = `${Math.abs(remaining).toFixed(1)}kg abaixo da meta!`;
-                progressBar.style.background = 'linear-gradient(90deg, #10b981 0%, #059669 100%)';
+                progressCircle.style.stroke = '#10b981';
             }
         }
 
@@ -1917,6 +1971,12 @@
             const section = document.getElementById(sectionId);
             section.classList.add('hidden');
             localStorage.setItem(`mari-${sectionId}-dismissed`, 'true');
+
+            // Esconde o botão X após clicar
+            const closeBtn = section.querySelector('.dismissable-close');
+            if (closeBtn) {
+                closeBtn.style.display = 'none';
+            }
         }
 
         function checkDismissedSections() {
