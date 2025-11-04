@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treino</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="resources/3c0be770-6a0b-4a65-a461-f089ffc1349f.jfif">
+
+    <!-- Apple Touch Icon para iPhone/iPad -->
+    <link rel="apple-touch-icon" href="resources/3c0be770-6a0b-4a65-a461-f089ffc1349f.jfif">
+
+    <!-- Meta tags adicionais para PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Treino">
+
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="styles/base.css">
+
+    <!-- Theme CSS - dynamically loaded based on user -->
+    <script>
+        // Get user from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const user = urlParams.get('user') || 'henrique';
+        const themeFile = user === 'mari' ? 'theme-mari.css' : 'theme-henrique.css';
+
+        // Dynamically load theme CSS
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = `styles/${themeFile}`;
+        document.head.appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💪 Meu Treino 💪</h1>
+            <div class="subtitle">Carregando...</div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Altura</div>
+                <div class="stat-value">-</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Peso Atual</div>
+                <div class="stat-value" id="currentWeight">-</div>
+                <button class="weight-update-btn" onclick="openWeightModal()">📊 Atualizar</button>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Meta</div>
+                <div class="stat-value">-</div>
+            </div>
+        </div>
+
+        <div class="dismiss-all-container">
+            <button class="dismiss-all-btn" onclick="dismissAllSections()" title="Fechar todas as mensagens e avisos">
+                🗑️ Limpar avisos
+            </button>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-box">
+                <div class="progress-title">🎯 Progresso para a Meta</div>
+                <div class="progress-circle-container">
+                    <svg class="progress-circle" viewBox="0 0 200 200">
+                        <circle class="progress-circle-bg" cx="100" cy="100" r="85"></circle>
+                        <circle class="progress-circle-fill" id="progressCircle" cx="100" cy="100" r="85"></circle>
+                    </svg>
+                    <div class="progress-center">
+                        <div class="progress-weight" id="currentWeightDisplay">-</div>
+                        <div class="progress-percentage" id="progressPercentage">0%</div>
+                        <div class="progress-text" id="progressText">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workout-counter-box">
+                <div class="workout-counter-title">💪 Total de Treinos</div>
+                <div class="workout-counter-display" id="workoutCounter">0</div>
+                <div class="workout-counter-label">treinos realizados</div>
+            </div>
+        </div>
+
+        <div class="goal" id="goalSection">
+            <button class="dismissable-close" onclick="dismissSection('goalSection')"
+                aria-label="Fechar objetivo">×</button>
+            <h3>🎯 OBJETIVO</h3>
+            <p>Carregando...</p>
+        </div>
+
+        <div class="start-date" id="startDateSection">
+            <button class="dismissable-close" onclick="dismissSection('startDateSection')"
+                aria-label="Fechar data">×</button>
+            <h3>📅 Início do Treino</h3>
+            <p>Carregando...</p>
+        </div>
+
+        <div class="alert-container">
+            <div class="alert" id="progressAlert">
+                <button class="alert-close" onclick="closeAlert('progressAlert')" aria-label="Fechar aviso">×</button>
+                <div class="alert-content">
+                    <span class="alert-icon">🔥</span>
+                    <div class="alert-text">
+                        <div class="alert-title">Você está progredindo!</div>
+                        <div class="alert-message" id="progressMessage">Carregando...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="workout-section" id="workoutSection">
+            <!-- Workout days will be dynamically inserted here by JavaScript -->
+
+            <div class="reset-section">
+                <button class="reset-btn" onclick="resetWorkoutProgress()">🔄 Resetar Progresso</button>
+            </div>
+
+            <div class="footer">
+                <p>💪 Foco, disciplina e resultados! 💪</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Atualização de Peso -->
+    <div class="modal" id="weightModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">⚖️ Atualizar Peso</div>
+                <div class="modal-subtitle">Digite seu peso atual em kg</div>
+            </div>
+            <div class="weight-input-group">
+                <input type="number" class="weight-input" id="weightInput" placeholder="75.0" step="0.1" min="40"
+                    max="200">
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-secondary" onclick="closeWeightModal()">Cancelar</button>
+                <button class="modal-btn modal-btn-primary" onclick="saveWeight()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration and App Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
