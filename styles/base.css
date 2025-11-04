@@ -926,8 +926,9 @@ body {
     }
 
     .day-title {
-        font-size: 1.3em;
+        font-size: 1.1em;
         gap: 8px;
+        letter-spacing: 1px;
     }
 
     .day-content.active {
@@ -1041,11 +1042,15 @@ body {
 
     /* Header */
     .header {
-        padding: 25px 15px;
+        padding: 20px 15px;
     }
 
     .header h1 {
-        font-size: 1.8em;
+        font-size: 1.7em;
+    }
+
+    .header .subtitle {
+        font-size: 0.95em;
     }
 
     /* Stats - stack vertically with more space */
@@ -1103,8 +1108,8 @@ body {
     }
 
     .day-title {
-        font-size: 1.1em;
-        letter-spacing: 1px;
+        font-size: 0.95em;
+        letter-spacing: 0.5px;
     }
 
     .day-content.active {
@@ -1124,14 +1129,15 @@ body {
     }
 
     .exercise-name {
-        font-size: 1em;
+        font-size: 0.95em;
         width: 100%;
     }
 
     .exercise-reps {
         width: 100%;
         text-align: center;
-        padding: 8px 12px;
+        padding: 7px 12px;
+        font-size: 0.9em;
     }
 
     .tutorial-btn {
@@ -1220,7 +1226,7 @@ body {
     }
 
     .day-title {
-        font-size: 1em;
+        font-size: 0.9em;
     }
 
     .progress-circle-container {
