@@ -28,10 +28,10 @@ const USERS_CONFIG = {
         workoutDays: [
             {
                 title: 'Dia 1 - Peito, Tríceps e Ombro',
-                emoji: '💪',
+                emoji: '',
                 exercises: [
                     { name: 'Supino com Barra', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/07/barbell-lying-closegrip-press.gif' },
-                    { name: 'Crucifixo', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/09/lever-seated-fly.gif', note: '🔥 Com dropset' },
+                    { name: 'Crucifixo', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/09/lever-seated-fly.gif', note: 'Com dropset' },
                     { name: 'Supino Inclinado na Máquina', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2024/07/lever-incline-chest-press.gif' },
                     { name: 'Elevação Lateral na Polia', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/05/elevacao-lateral-inclinada.gif' },
                     { name: 'Extensão de Ombro', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/11/dumbbell-front-raise.gif' },
@@ -43,13 +43,13 @@ const USERS_CONFIG = {
             },
             {
                 title: 'Dia 2 - Quadríceps Completo',
-                emoji: '🦵',
+                emoji: '',
                 exercises: [
-                    { name: 'Máquina Flexora', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2024/12/cadeira-flexora.gif', note: '⚙️ Unilateral / junto até falha' },
+                    { name: 'Máquina Flexora', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2024/12/cadeira-flexora.gif', note: 'Unilateral / junto até falha' },
                     { name: 'Agachamento Inclinado', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/sled-hack-squat.gif' },
                     { name: 'Agachamento Livre', reps: '3x12', gif: 'https://media.tenor.com/Re3T3B66V9UAAAAM/barbellsquats-gymexercisesmen.gif' },
-                    { name: 'Leg Press', reps: '3x12', gif: 'https://media.tenor.com/e0qeS17dv7QAAAAM/legpress45-leg-press.gif', note: '💪 Bombeando 2T' },
-                    { name: 'Cadeira Extensora', reps: '3x12', gif: 'https://media.tenor.com/fNeMiJuGmEcAAAAM/cadeira-extensora-extensora.gif', note: '🔥 Faz 12 e depois 12 segurando' },
+                    { name: 'Leg Press', reps: '3x12', gif: 'https://media.tenor.com/e0qeS17dv7QAAAAM/legpress45-leg-press.gif', note: 'Bombeando 2T' },
+                    { name: 'Cadeira Extensora', reps: '3x12', gif: 'https://media.tenor.com/fNeMiJuGmEcAAAAM/cadeira-extensora-extensora.gif', note: 'Faz 12 e depois 12 segurando' },
                     { name: 'Stiff', reps: '3x12', gif: 'https://i.pinimg.com/originals/82/4d/fd/824dfd405284597cd20e8a55233e2d77.gif' },
                     { name: 'Cadeira Abdutora', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2024/09/lever-seated-hip-abduction.gif' },
                     { name: 'Cadeira Adutora', reps: '3x12', gif: 'https://i.pinimg.com/originals/4e/17/b8/4e17b88b6b11c54155939c0a5b3c3381.gif' },
@@ -58,7 +58,7 @@ const USERS_CONFIG = {
             },
             {
                 title: 'Dia 3 - Costas e Bíceps',
-                emoji: '🔥',
+                emoji: '',
                 exercises: [
                     { name: 'Remada Aberta', reps: '3x12', gif: 'https://www.mundoboaforma.com.br/wp-content/uploads/2021/09/remada-na-maquina-de-cabos-sentado-e-com-pegada-aberta.gif' },
                     { name: 'Remada Neutra Triângulo', reps: '3x12', gif: 'https://trainings.com.br/app/imgmovimentos/costas-remada%20baixa%20unilateral%20pegada%20neutra.gif' },
@@ -92,7 +92,7 @@ const USERS_CONFIG = {
         workoutDays: [
             {
                 title: 'Dia 1 - Quadríceps',
-                emoji: '🦵',
+                emoji: '',
                 exercises: [
                     { name: 'Agachamento Taça', reps: '4x20', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/11/dumbbell-goblet-squat.gif' },
                     { name: 'Leg Press 45', reps: '4x10 + 10seg segurando', gif: 'https://media.tenor.com/xJh_-w_SxckAAAAM/leg-press.gif' },
@@ -103,7 +103,7 @@ const USERS_CONFIG = {
             },
             {
                 title: 'Dia 2 - Membros Superiores 1',
-                emoji: '💪',
+                emoji: '',
                 exercises: [
                     { name: 'Puxada Aberta', reps: '3x12', gif: 'https://image.tuasaude.com/media/article/uh/yp/puxada-frontal_75625.gif?width=686&height=487' },
                     { name: 'Remada Baixa Triângulo', reps: '3x12', gif: 'https://media.tenor.com/_UNWN5PNy0EAAAAM/remada-fechada-triangulo.gif' },
@@ -114,19 +114,19 @@ const USERS_CONFIG = {
             },
             {
                 title: 'Dia 3 - Dia de Bunda',
-                emoji: '🍑',
+                emoji: '',
                 exercises: [
-                    { name: 'Abdutora', reps: '6x até a falha', gif: 'https://i.pinimg.com/originals/4e/17/b8/4e17b88b6b11c54155939c0a5b3c3381.gif', note: '⚠️ Usar a carga mais alta possível' },
-                    { name: 'Agachamento Livre', reps: '4x10', gif: 'https://i.pinimg.com/originals/c9/86/f8/c986f8c571184841e8a0e0e95e94963a.gif', note: '📈 Progressão de carga entre as séries + 4 segundos de isometria agachado' },
+                    { name: 'Abdutora', reps: '6x até a falha', gif: 'https://i.pinimg.com/originals/4e/17/b8/4e17b88b6b11c54155939c0a5b3c3381.gif', note: 'Usar a carga mais alta possível' },
+                    { name: 'Agachamento Livre', reps: '4x10', gif: 'https://i.pinimg.com/originals/c9/86/f8/c986f8c571184841e8a0e0e95e94963a.gif', note: 'Progressão de carga entre as séries + 4 segundos de isometria agachado' },
                     { name: 'Extensão de Quadril na Polia', reps: '4x10', gif: 'https://i0.wp.com/meutreinador.com/wp-content/uploads/2023/12/60_Gluteos-no-Cabo-Posicao-Curvada.gif?fit=1080%2C1080&ssl=1' },
-                    { name: 'Elevação Pélvica', reps: '4x10', gif: 'https://treinoemalta.com.br/wp-content/uploads/2023/07/Elevacao-Pelvica.gif', note: '🔥 Contrair 10 vezes no ponto isométrico do exercício (não faço na barra porque preguiça)' },
-                    { name: '4 Apoios no Tapete', reps: '4x10', gif: 'https://i.makeagif.com/media/3-14-2023/seLxLg.gif', note: '⚙️ Com peso acoplado no calcanhar' },
+                    { name: 'Elevação Pélvica', reps: '4x10', gif: 'https://treinoemalta.com.br/wp-content/uploads/2023/07/Elevacao-Pelvica.gif', note: 'Contrair 10 vezes no ponto isométrico do exercício (não faço na barra porque preguiça)' },
+                    { name: '4 Apoios no Tapete', reps: '4x10', gif: 'https://i.makeagif.com/media/3-14-2023/seLxLg.gif', note: 'Com peso acoplado no calcanhar' },
                     { name: 'Búlgaro', reps: '4x12', gif: 'https://i.makeagif.com/media/4-14-2021/pEdEHO.gif' }
                 ]
             },
             {
                 title: 'Dia 4 - Membros Superiores 2',
-                emoji: '💪',
+                emoji: '',
                 exercises: [
                     { name: 'Supino Inclinado com Halteres', reps: '3x10', gif: 'https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/supino-inclinado-com-halteres.gif' },
                     { name: 'Supino Reto Máquina', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2024/04/lever-chest-press-.gif' },
@@ -138,7 +138,7 @@ const USERS_CONFIG = {
             },
             {
                 title: 'Dia 5 - Posterior',
-                emoji: '🔥',
+                emoji: '',
                 exercises: [
                     { name: 'Sumo Step', reps: '4x12', gif: 'https://gymvisual.com/img/p/1/1/8/6/3/11863.gif' },
                     { name: 'Mesa Flexora', reps: '4x12', gif: 'https://media.tenor.com/fj_cZPprAyMAAAAM/gym.gif' },

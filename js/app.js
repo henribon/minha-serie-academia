@@ -56,7 +56,7 @@ function renderPage() {
     document.title = `Treino - ${currentConfig.name}`;
 
     // Update header
-    document.querySelector('.header h1').textContent = '💪 Meu Treino 💪';
+    document.querySelector('.header h1').textContent = 'Meu Treino';
     document.querySelector('.header .subtitle').textContent = currentConfig.displayName;
 
     // Update stats
@@ -145,7 +145,7 @@ function createDayContainer(day, dayIndex) {
     workoutFooter.className = 'workout-footer';
     workoutFooter.innerHTML = `
         <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-            ✅ Malhei Hoje
+            Malhei Hoje
         </button>
     `;
     exerciseList.appendChild(workoutFooter);
@@ -266,7 +266,7 @@ function resetWorkoutProgress() {
         day.classList.remove("highlighted");
     });
 
-    alert("🔄 Progresso foi resetado!");
+    alert("Progresso foi resetado!");
 }
 
 /**
@@ -420,18 +420,18 @@ function updateProgressAlert() {
     const messageEl = document.getElementById('progressMessage');
 
     if (diffDays === 0) {
-        messageEl.textContent = 'Hoje é o primeiro dia do seu treino! Vamos com tudo! 💪';
+        messageEl.textContent = 'Hoje é o primeiro dia do seu treino! Vamos com tudo!';
     } else if (diffDays === 1) {
-        messageEl.textContent = 'Você começou ontem! Continue firme! 🚀';
+        messageEl.textContent = 'Você começou ontem! Continue firme!';
     } else if (diffDays < 7) {
-        messageEl.textContent = `Você está treinando há ${diffDays} dias! Continue assim! 🔥`;
+        messageEl.textContent = `Você está treinando há ${diffDays} dias! Continue assim!`;
     } else if (diffDays < 30) {
         const weeks = Math.floor(diffDays / 7);
-        messageEl.textContent = `${weeks} ${weeks === 1 ? 'semana' : 'semanas'} de treino (${diffDays} dias)! Os resultados estão chegando! 💪`;
+        messageEl.textContent = `${weeks} ${weeks === 1 ? 'semana' : 'semanas'} de treino (${diffDays} dias)! Os resultados estão chegando!`;
     } else {
         const months = Math.floor(diffDays / 30);
         const remainingDays = diffDays % 30;
-        messageEl.textContent = `${months} ${months === 1 ? 'mês' : 'meses'} e ${remainingDays} dias de dedicação! Você é imparável! 🏆`;
+        messageEl.textContent = `${months} ${months === 1 ? 'mês' : 'meses'} e ${remainingDays} dias de dedicação! Você é imparável!`;
     }
 }
 
@@ -530,7 +530,7 @@ function updateProgressBar() {
     const goalReached = isGaining ? currentWeight >= TARGET_WEIGHT : currentWeight <= TARGET_WEIGHT;
 
     if (goalReached) {
-        progressText.textContent = '🎉 Meta alcançada!';
+        progressText.textContent = 'Meta alcançada!';
         progressCircle.style.stroke = '#10b981';
     } else if (remaining > 0) {
         progressText.textContent = `Faltam ${remaining.toFixed(1)}kg`;

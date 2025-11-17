@@ -38,7 +38,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>💪 Meu Treino 💪</h1>
+            <h1>Meu Treino</h1>
             <div class="subtitle">Carregando...</div>
         </div>
 
@@ -50,7 +50,7 @@
             <div class="stat-box">
                 <div class="stat-label">Peso Atual</div>
                 <div class="stat-value" id="currentWeight">-</div>
-                <button class="weight-update-btn" onclick="openWeightModal()">📊 Atualizar</button>
+                <button class="weight-update-btn" onclick="openWeightModal()">Atualizar</button>
             </div>
             <div class="stat-box">
                 <div class="stat-label">Meta</div>
@@ -60,13 +60,13 @@
 
         <div class="dismiss-all-container">
             <button class="dismiss-all-btn" onclick="dismissAllSections()" title="Fechar todas as mensagens e avisos">
-                🗑️ Limpar avisos
+                Limpar avisos
             </button>
         </div>
 
         <div class="progress-container">
             <div class="progress-box">
-                <div class="progress-title">🎯 Progresso para a Meta</div>
+                <div class="progress-title">Progresso para a Meta</div>
                 <div class="progress-circle-container">
                     <svg class="progress-circle" viewBox="0 0 200 200">
                         <circle class="progress-circle-bg" cx="100" cy="100" r="85"></circle>
@@ -81,7 +81,7 @@
             </div>
 
             <div class="workout-counter-box">
-                <div class="workout-counter-title">💪 Total de Treinos</div>
+                <div class="workout-counter-title">Total de Treinos</div>
                 <div class="workout-counter-display" id="workoutCounter">0</div>
                 <div class="workout-counter-label">treinos realizados</div>
             </div>
@@ -90,14 +90,14 @@
         <div class="goal" id="goalSection">
             <button class="dismissable-close" onclick="dismissSection('goalSection')"
                 aria-label="Fechar objetivo">×</button>
-            <h3>🎯 OBJETIVO</h3>
+            <h3>OBJETIVO</h3>
             <p>Carregando...</p>
         </div>
 
         <div class="start-date" id="startDateSection">
             <button class="dismissable-close" onclick="dismissSection('startDateSection')"
                 aria-label="Fechar data">×</button>
-            <h3>📅 Início do Treino</h3>
+            <h3>Início do Treino</h3>
             <p>Carregando...</p>
         </div>
 
@@ -105,7 +105,6 @@
             <div class="alert" id="progressAlert">
                 <button class="alert-close" onclick="closeAlert('progressAlert')" aria-label="Fechar aviso">×</button>
                 <div class="alert-content">
-                    <span class="alert-icon">🔥</span>
                     <div class="alert-text">
                         <div class="alert-title">Você está progredindo!</div>
                         <div class="alert-message" id="progressMessage">Carregando...</div>
@@ -118,11 +117,11 @@
             <!-- Workout days will be dynamically inserted here by JavaScript -->
 
             <div class="reset-section">
-                <button class="reset-btn" onclick="resetWorkoutProgress()">🔄 Resetar Progresso</button>
+                <button class="reset-btn" onclick="resetWorkoutProgress()">Resetar Progresso</button>
             </div>
 
             <div class="footer">
-                <p>💪 Foco, disciplina e resultados! 💪</p>
+                <p>Foco, disciplina e resultados!</p>
             </div>
         </div>
     </div>
