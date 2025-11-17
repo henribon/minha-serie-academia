@@ -136,7 +136,7 @@ function createDayContainer(day, dayIndex) {
     exerciseList.className = 'exercise-list';
 
     day.exercises.forEach((exercise, index) => {
-        const exerciseItem = createExerciseItem(exercise, index + 1);
+        const exerciseItem = createExerciseItem(exercise, index + 1, dayIndex);
         exerciseList.appendChild(exerciseItem);
     });
 
@@ -160,14 +160,20 @@ function createDayContainer(day, dayIndex) {
 /**
  * Create an exercise item
  */
-function createExerciseItem(exercise, number) {
+function createExerciseItem(exercise, number, dayIndex) {
     const li = document.createElement('li');
     li.className = 'exercise-item';
 
     const note = exercise.note ? `<div class="exercise-note">${exercise.note}</div>` : '';
+    const checkboxId = `exercise-check-${dayIndex}-${number}`;
 
     li.innerHTML = `
         <div class="exercise-header">
+            <div class="exercise-checkbox">
+                <input type="checkbox" id="${checkboxId}" class="exercise-check-input"
+                       onchange="toggleExerciseCheck(this, ${dayIndex}, ${number - 1})">
+                <label for="${checkboxId}" class="exercise-check-label"></label>
+            </div>
             <div class="exercise-number">${number}</div>
             <div class="exercise-content">
                 <span class="exercise-name">${exercise.name}</span>
@@ -581,6 +587,95 @@ function restoreSections() {
 }
 
 /**
+ * Exercise Checkbox System (with daily reset)
+ */
+
+// Get today's date in YYYY-MM-DD format
+function getTodayDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+// Get storage key for exercise checks
+function getExerciseChecksKey() {
+    return getStorageKeyDash('exercise-checks');
+}
+
+// Get storage key for the last check date
+function getLastCheckDateKey() {
+    return getStorageKeyDash('exercise-checks-date');
+}
+
+// Load exercise checks from localStorage
+function loadExerciseChecks() {
+    // Check if we need to reset (new day)
+    const lastCheckDate = localStorage.getItem(getLastCheckDateKey());
+    const today = getTodayDate();
+
+    if (lastCheckDate !== today) {
+        // New day - reset all checks
+        localStorage.removeItem(getExerciseChecksKey());
+        localStorage.setItem(getLastCheckDateKey(), today);
+        return {};
+    }
+
+    // Load existing checks
+    const checksJson = localStorage.getItem(getExerciseChecksKey());
+    return checksJson ? JSON.parse(checksJson) : {};
+}
+
+// Save exercise check state
+function saveExerciseCheck(dayIndex, exerciseIndex, checked) {
+    const checks = loadExerciseChecks();
+    const key = `${dayIndex}-${exerciseIndex}`;
+
+    if (checked) {
+        checks[key] = true;
+    } else {
+        delete checks[key];
+    }
+
+    localStorage.setItem(getExerciseChecksKey(), JSON.stringify(checks));
+    localStorage.setItem(getLastCheckDateKey(), getTodayDate());
+}
+
+// Toggle exercise check
+function toggleExerciseCheck(checkbox, dayIndex, exerciseIndex) {
+    const checked = checkbox.checked;
+    saveExerciseCheck(dayIndex, exerciseIndex, checked);
+
+    // Add visual feedback
+    const exerciseItem = checkbox.closest('.exercise-item');
+    if (checked) {
+        exerciseItem.classList.add('exercise-completed');
+    } else {
+        exerciseItem.classList.remove('exercise-completed');
+    }
+}
+
+// Restore checkbox states from localStorage
+function restoreExerciseChecks() {
+    const checks = loadExerciseChecks();
+
+    Object.keys(checks).forEach(key => {
+        const [dayIndex, exerciseIndex] = key.split('-');
+        const checkboxId = `exercise-check-${dayIndex}-${parseInt(exerciseIndex) + 1}`;
+        const checkbox = document.getElementById(checkboxId);
+
+        if (checkbox) {
+            checkbox.checked = true;
+            const exerciseItem = checkbox.closest('.exercise-item');
+            if (exerciseItem) {
+                exerciseItem.classList.add('exercise-completed');
+            }
+        }
+    });
+}
+
+/**
  * Event Listeners Setup
  */
 function setupEventListeners() {
@@ -609,4 +704,5 @@ function setupEventListeners() {
 document.addEventListener('DOMContentLoaded', function () {
     initializeApp();
     setupEventListeners();
+    restoreExerciseChecks();
 });
