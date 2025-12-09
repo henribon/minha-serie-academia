@@ -71,6 +71,63 @@ const USERS_CONFIG = {
         ]
     },
 
+    eunice: {
+        // Personal Info
+        name: 'Eunice',
+        displayName: 'Eunice',
+        height: '',
+        initialWeight: 0,
+        targetWeight: 0,
+        objective: 'Fortalecimento muscular',
+        startDate: '2025-12-09',
+
+        // Theme
+        theme: 'eunice',
+        themeFile: 'theme-eunice.css',
+
+        // Storage Keys (for localStorage)
+        storagePrefix: 'eunice',
+
+        // Workout Days
+        workoutDays: [
+            {
+                title: 'Dia 1 - Inferior A (Quadríceps)',
+                emoji: '🦵',
+                exercises: [
+                    { name: 'Leg Press 45°', reps: '3x15', gif: 'https://media.tenor.com/e0qeS17dv7QAAAAM/legpress45-leg-press.gif' },
+                    { name: 'Cadeira Extensora', reps: '3x15-20', gif: 'https://media.tenor.com/fNeMiJuGmEcAAAAM/cadeira-extensora-extensora.gif', note: '⚠️ Controle total, sem travar o joelho no topo' },
+                    { name: 'Agachamento Búlgaro', reps: '3x10 cada perna', gif: 'https://media.tenor.com/5P_Ar_LX0DQAAAAM/split-squat-exercise.gif' },
+                    { name: 'Abdução de Quadril', reps: '2x15', gif: 'https://i.pinimg.com/originals/6f/e3/fd/6fe3fdb4b0fbd8379229a659f099fae0.gif', note: '⚙️ Máquina ou faixa' },
+                    { name: 'Panturrilha em Pé', reps: '3x15', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/lever-standing-calf-raise.gif' }
+                ]
+            },
+            {
+                title: 'Dia 2 - Inferior B (Posterior)',
+                emoji: '🍑',
+                exercises: [
+                    { name: 'Cadeira Flexora', reps: '3x15', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2024/12/cadeira-flexora.gif' },
+                    { name: 'Stiff com Halteres', reps: '3x12', gif: 'https://cdn.fisiculturismo.com.br/monthly_2017_02/stiff-animacao.gif.7376656c15edc54c91518d6967d96a20.gif', note: '⚠️ Carga leve' },
+                    { name: 'Leg Press (Pé Alto)', reps: '3x12', gif: 'https://media.tenor.com/e0qeS17dv7QAAAAM/legpress45-leg-press.gif', note: '🍑 Foco em glúteo/posterior' },
+                    { name: 'Adução de Quadril', reps: '2x15', gif: 'https://www.mundoboaforma.com.br/wp-content/uploads/2021/04/pernas-abducao-de-pernas-na-maquina.gif' },
+                    { name: 'Elevação de Quadril', reps: '3x12', gif: 'https://fitnessprogramer.com/wp-content/uploads/2022/04/bodyweight-hip-thrust.gif', note: '⚙️ Hip thrust ou ponte' },
+                    { name: 'Panturrilha Sentado', reps: '3x15', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2018/10/lever-seated-calf-raise-.gif' }
+                ]
+            },
+            {
+                title: 'Dia 3 - Superior',
+                emoji: '💪',
+                exercises: [
+                    { name: 'Tríceps Corda na Polia', reps: '3x15-20', gif: 'https://i0.wp.com/omelhortreino.com.br/wp-content/uploads/2025/04/Triceps-na-polia-com-corda.gif?resize=550%2C550&ssl=1' },
+                    { name: 'Tríceps Francês com Halter', reps: '3x12-15', gif: 'https://media.tenor.com/V3J-mg9gH0kAAAAM/seated-dumbbell-triceps-extension.gif' },
+                    { name: 'Tríceps Fechado', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/10/supino-fechado-com-halteres.gif' },
+                    { name: 'Remada Máquina', reps: '3x12', gif: 'https://www.hipertrofia.org/blog/wp-content/uploads/2024/05/cable-straight-back-seated-row.gif', note: '⚙️ Ou puxada' },
+                    { name: 'Rosca Direta com Halteres', reps: '2x12', gif: 'https://i.pinimg.com/originals/d2/c1/40/d2c140a0c785db594687ea8c8747a723.gif' },
+                    { name: 'Supino Máquina', reps: '2x12', gif: 'https://media.tenor.com/PhP1A7mNjx4AAAAe/supino-m%C3%A1quina.png', note: '⚙️ Ou crossover leve' }
+                ]
+            }
+        ]
+    },
+
     mari: {
         // Personal Info
         name: 'Mariana Pololita Lolipo',

@@ -1,0 +1,49 @@
+/* Theme: Eunice - Green/Turquoise */
+
+:root {
+    /* Primary Colors */
+    --color-primary: #2dd4bf;
+    --color-secondary: #14b8a6;
+    --color-primary-light: rgba(45, 212, 191, 0.1);
+    --color-primary-shadow: rgba(20, 184, 166, 0.4);
+
+    /* Gradients */
+    --gradient-background: linear-gradient(135deg, #0d9488 0%, #059669 100%);
+    --gradient-header: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+    --gradient-day-header: linear-gradient(135deg, #0d9488 0%, #059669 100%);
+    --gradient-exercise: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+    --gradient-tutorial: linear-gradient(135deg, #0d9488 0%, #059669 100%);
+    --gradient-tutorial-active: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%);
+
+    /* Goal Section */
+    --gradient-goal: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    --color-goal: #14b8a6;
+    --color-goal-dark: #0d9488;
+
+    /* Start Date Section */
+    --gradient-start-date: linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%);
+    --color-start-date: #0d9488;
+    --color-start-date-dark: #134e4a;
+
+    /* Alert */
+    --gradient-alert: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    --color-alert: #10b981;
+    --color-alert-dark: #065f46;
+    --color-alert-text: #047857;
+    --color-alert-hover: rgba(6, 95, 70, 0.1);
+
+    /* Exercise Items */
+    --color-exercise: #14b8a6;
+    --bg-exercise-reps: linear-gradient(135deg, #ccfbf1 0%, #d1fae5 100%);
+    --color-exercise-reps: #333;
+
+    /* Divider */
+    --gradient-divider: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    --color-divider: #0d9488;
+
+    /* Shadows */
+    --shadow-day-header: 0 4px 12px rgba(13, 148, 136, 0.3);
+    --shadow-day-header-hover: 0 6px 16px rgba(13, 148, 136, 0.4);
+    --shadow-tutorial: 0 3px 8px rgba(13, 148, 136, 0.3);
+    --shadow-tutorial-hover: 0 5px 12px rgba(13, 148, 136, 0.5);
+}
