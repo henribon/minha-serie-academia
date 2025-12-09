@@ -41,11 +41,8 @@ function initializeApp() {
     loadHighlightedDay();
     loadWorkoutOrder();
     initializeDragAndDrop();
-    updateProgressAlert();
-    checkAlertStatus();
     loadWeight();
     updateProgressBar();
-    checkDismissedSections();
 }
 
 /**
@@ -72,24 +69,8 @@ function renderPage() {
     const direction = currentConfig.targetWeight > currentConfig.initialWeight ? 'Faltam' : 'Faltam';
     document.getElementById('progressText').textContent = `${direction} ${difference}kg`;
 
-    // Update goal section
-    document.querySelector('.goal p').textContent = currentConfig.objective;
-    document.querySelector('.start-date p').textContent = formatDate(currentConfig.startDate);
-
     // Render workout days
     renderWorkoutDays();
-}
-
-/**
- * Format date to Brazilian format
- */
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const months = [
-        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
-    return `${date.getDate()} de ${months[date.getMonth()]} de ${date.getFullYear()}`;
 }
 
 /**
@@ -378,7 +359,6 @@ function saveWorkoutOrder() {
     });
 
     localStorage.setItem(getStorageKeyDash('workout-order'), JSON.stringify(order));
-    console.log('Ordem salva:', order);
 }
 
 function loadWorkoutOrder() {
@@ -404,50 +384,6 @@ function loadWorkoutOrder() {
             workoutSection.insertBefore(container, resetSection);
         }
     });
-
-    console.log('Ordem carregada:', order);
-}
-
-/**
- * Progress Alert System
- */
-function updateProgressAlert() {
-    const startDate = new Date(currentConfig.startDate);
-    const today = new Date();
-    const diffTime = Math.abs(today - startDate);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    const messageEl = document.getElementById('progressMessage');
-
-    if (diffDays === 0) {
-        messageEl.textContent = 'Hoje é o primeiro dia do seu treino! Vamos com tudo! 💪';
-    } else if (diffDays === 1) {
-        messageEl.textContent = 'Você começou ontem! Continue firme! 🚀';
-    } else if (diffDays < 7) {
-        messageEl.textContent = `Você está treinando há ${diffDays} dias! Continue assim! 🔥`;
-    } else if (diffDays < 30) {
-        const weeks = Math.floor(diffDays / 7);
-        messageEl.textContent = `${weeks} ${weeks === 1 ? 'semana' : 'semanas'} de treino (${diffDays} dias)! Os resultados estão chegando! 💪`;
-    } else {
-        const months = Math.floor(diffDays / 30);
-        const remainingDays = diffDays % 30;
-        messageEl.textContent = `${months} ${months === 1 ? 'mês' : 'meses'} e ${remainingDays} dias de dedicação! Você é imparável! 🏆`;
-    }
-}
-
-function closeAlert(alertId) {
-    const alert = document.getElementById(alertId);
-    alert.classList.add('hidden');
-    localStorage.setItem(getStorageKeyDash(`${alertId}-closed`), 'true');
-}
-
-function checkAlertStatus() {
-    const alertId = 'progressAlert';
-    const isClosed = localStorage.getItem(getStorageKeyDash(`${alertId}-closed`));
-
-    if (isClosed === 'true') {
-        document.getElementById(alertId).classList.add('hidden');
-    }
 }
 
 /**
@@ -541,49 +477,6 @@ function updateProgressBar() {
         progressText.textContent = `${extra.toFixed(1)}kg ${beyondText}`;
         progressCircle.style.stroke = '#10b981';
     }
-}
-
-/**
- * Dismissible Sections System
- */
-function dismissSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    section.classList.add('hidden');
-    localStorage.setItem(getStorageKeyDash(`${sectionId}-dismissed`), 'true');
-
-    // Hide the X button after clicking
-    const closeBtn = section.querySelector('.dismissable-close');
-    if (closeBtn) {
-        closeBtn.style.display = 'none';
-    }
-}
-
-function checkDismissedSections() {
-    const sections = ['goalSection', 'startDateSection'];
-    sections.forEach(sectionId => {
-        const isDismissed = localStorage.getItem(getStorageKeyDash(`${sectionId}-dismissed`));
-        if (isDismissed === 'true') {
-            document.getElementById(sectionId).classList.add('hidden');
-        }
-    });
-}
-
-function dismissAllSections() {
-    const sections = ['goalSection', 'startDateSection', 'progressAlert'];
-    sections.forEach(sectionId => {
-        const section = document.getElementById(sectionId);
-        if (section && !section.classList.contains('hidden')) {
-            section.classList.add('hidden');
-            localStorage.setItem(getStorageKeyDash(`${sectionId}-dismissed`), 'true');
-        }
-    });
-}
-
-function restoreSections() {
-    localStorage.removeItem(getStorageKeyDash('goalSection-dismissed'));
-    localStorage.removeItem(getStorageKeyDash('startDateSection-dismissed'));
-    localStorage.removeItem(getStorageKeyDash('progressAlert-closed'));
-    location.reload();
 }
 
 /**
