@@ -43,6 +43,7 @@ function initializeApp() {
     initializeDragAndDrop();
     loadWeight();
     updateProgressBar();
+    loadExerciseWeights();
 }
 
 /**
@@ -147,6 +148,13 @@ function createExerciseItem(exercise, number, dayIndex) {
 
     const note = exercise.note ? `<div class="exercise-note">${exercise.note}</div>` : '';
     const checkboxId = `exercise-check-${dayIndex}-${number}`;
+    const weightTracker = currentConfig.weightTracking ? `
+                <div class="weight-tracker">
+                    <span class="weight-label">⚖️</span>
+                    <input type="number" class="weight-field" data-exercise="${slugify(exercise.name)}"
+                        placeholder="kg" step="0.5" min="0" max="500" onchange="saveExerciseWeight(this)">
+                    <span class="weight-unit">kg</span>
+                </div>` : '';
 
     li.innerHTML = `
         <div class="exercise-header">
@@ -158,7 +166,7 @@ function createExerciseItem(exercise, number, dayIndex) {
             <div class="exercise-number">${number}</div>
             <div class="exercise-content">
                 <span class="exercise-name">${exercise.name}</span>
-                <span class="exercise-reps">${exercise.reps}</span>
+                <span class="exercise-reps">${exercise.reps}</span>${weightTracker}
                 <div class="exercise-link">
                     <button class="tutorial-btn" onclick="toggleGif(this, event)">Tutorial</button>
                 </div>
@@ -383,6 +391,33 @@ function loadWorkoutOrder() {
         if (container) {
             workoutSection.insertBefore(container, resetSection);
         }
+    });
+}
+
+/**
+ * Per-Exercise Weight Tracking (opt-in via currentConfig.weightTracking)
+ */
+function slugify(text) {
+    return text
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}
+
+function saveExerciseWeight(input) {
+    const key = getStorageKeyDash('weight-' + input.dataset.exercise);
+    if (input.value === '') {
+        localStorage.removeItem(key);
+    } else {
+        localStorage.setItem(key, input.value);
+    }
+}
+
+function loadExerciseWeights() {
+    document.querySelectorAll('.weight-field').forEach(input => {
+        const saved = localStorage.getItem(getStorageKeyDash('weight-' + input.dataset.exercise));
+        if (saved !== null) input.value = saved;
     });
 }
 

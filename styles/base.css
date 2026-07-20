@@ -726,6 +726,43 @@ body {
     flex-shrink: 0;
 }
 
+.weight-tracker {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f8f9fa;
+    border: 2px solid var(--color-primary);
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+.weight-label {
+    font-size: 0.95em;
+}
+
+.weight-field {
+    width: 60px;
+    border: none;
+    background: transparent;
+    font-size: 0.95em;
+    font-weight: 700;
+    color: var(--color-goal-dark, #d63447);
+    text-align: center;
+    outline: none;
+}
+
+.weight-field::placeholder {
+    color: #bbb;
+    font-weight: 400;
+}
+
+.weight-unit {
+    font-size: 0.85em;
+    color: #666;
+    font-weight: 600;
+}
+
 .exercise-link {
     margin-left: auto;
     flex-shrink: 0;
