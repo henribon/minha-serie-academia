@@ -21,13 +21,13 @@ const CHAVES = {
 };
 
 const PRESETS = [
-    { label: '💥 Empurrar (Push)', grupos: ['peito', 'ombro', 'triceps'] },
-    { label: '🪝 Puxar (Pull)', grupos: ['costas', 'biceps'] },
-    { label: '🦵 Perna Completa', grupos: ['quadriceps', 'posterior', 'gluteo', 'panturrilha'] },
-    { label: '🍑 Glúteo & Posterior', grupos: ['gluteo', 'posterior'] },
-    { label: '👕 Superior', grupos: ['peito', 'costas', 'ombro'] },
-    { label: '💪 Braço', grupos: ['biceps', 'triceps'] },
-    { label: '🔥 Full Body', grupos: ['peito', 'costas', 'quadriceps', 'posterior', 'ombro'] }
+    { label: 'Empurrar', grupos: ['peito', 'ombro', 'triceps'] },
+    { label: 'Puxar', grupos: ['costas', 'biceps'] },
+    { label: 'Perna completa', grupos: ['quadriceps', 'posterior', 'gluteo', 'panturrilha'] },
+    { label: 'Glúteo e posterior', grupos: ['gluteo', 'posterior'] },
+    { label: 'Superior', grupos: ['peito', 'costas', 'ombro'] },
+    { label: 'Braço', grupos: ['biceps', 'triceps'] },
+    { label: 'Corpo inteiro', grupos: ['peito', 'costas', 'quadriceps', 'posterior', 'ombro'] }
 ];
 
 const estado = {
@@ -40,6 +40,16 @@ const estado = {
 };
 
 /* ------------------------------------------------------------ Utilitários */
+
+/**
+ * As dicas do banco começam com um emoji marcador (⚠️, 🔥, 📐...). O dado
+ * continua lá, mas na tela ele destoa da tipografia — então não renderiza.
+ */
+function semEmojiInicial(texto) {
+    return String(texto || '')
+        .replace(/^[\u{1F300}-\u{1FAFF}\u{2190}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]+\s*/u, '')
+        .trim();
+}
 
 function escapar(texto) {
     return String(texto === null || texto === undefined ? '' : texto)
@@ -110,7 +120,7 @@ async function copiar(texto, mensagemOk) {
         }
         mostrarToast(mensagemOk);
     } catch (erro) {
-        mostrarToast('Não consegui copiar — seleciona e copia na mão 🙏');
+        mostrarToast('Não consegui copiar — seleciona e copia na mão');
     }
 }
 
@@ -156,7 +166,7 @@ function renderChips() {
         botao.type = 'button';
         botao.className = 'chip' + (grupo.secundario ? ' chip-secondary' : '');
         botao.dataset.grupo = chave;
-        botao.innerHTML = `<span class="chip-emoji">${grupo.emoji}</span><span>${escapar(grupo.label)}</span>`;
+        botao.textContent = grupo.label;
         botao.setAttribute('aria-pressed', 'false');
         botao.addEventListener('click', () => alternarGrupo(chave));
         (grupo.secundario ? secundarios : principais).appendChild(botao);
@@ -175,8 +185,8 @@ function atualizarChips() {
     const botao = document.getElementById('generateBtn');
     botao.disabled = estado.grupos.length === 0;
     botao.textContent = estado.grupos.length === 0
-        ? '👆 Escolhe pelo menos um grupo'
-        : '⚡ Montar meu treino';
+        ? 'Escolhe pelo menos um grupo'
+        : 'Montar meu treino';
 }
 
 function alternarGrupo(chave) {
@@ -254,7 +264,7 @@ function renderOpcoes() {
 
 function gerar() {
     if (!estado.grupos.length) {
-        mostrarToast('Escolhe pelo menos um grupo muscular 💪');
+        mostrarToast('Escolhe pelo menos um grupo muscular');
         return;
     }
 
@@ -302,9 +312,9 @@ function renderSessao() {
         sessao.descanso ? `descanso de ${sessao.descanso}` : ''
     ].filter(Boolean);
     resumo.innerHTML = `
-        <strong>${escapar(sessao.emoji || '💪')} ${escapar(sessao.titulo)}</strong>
+        <strong>${escapar(sessao.titulo)}</strong>
         ${escapar(sessao.resumo || '')}<br>
-        <span style="opacity:.75">${escapar(partes.join(' · '))}</span>
+        ${escapar(partes.join(' · '))}
     `;
 
     // Aviso quando não coube todo mundo no tempo escolhido
@@ -312,7 +322,7 @@ function renderSessao() {
     if (sessao.foraDoTreino && sessao.foraDoTreino.length) {
         const nomes = sessao.foraDoTreino.map(g => GRUPOS[g] ? GRUPOS[g].label : g).join(', ');
         aviso.hidden = false;
-        aviso.innerHTML = `⚠️ <strong>${escapar(nomes)}</strong> ficou de fora: não cabe nesse tempo.
+        aviso.innerHTML = `<strong>${escapar(nomes)}</strong> ficou de fora: não cabe nesse tempo.
             Aumenta a duração em <em>Ajustar</em> ou deixa pra outro dia.`;
     } else {
         aviso.hidden = true;
@@ -328,10 +338,7 @@ function renderSessao() {
     const cabecalho = document.createElement('div');
     cabecalho.className = 'day-header active';
     cabecalho.innerHTML = `
-        <div class="day-title">
-            <span>${escapar(sessao.emoji || '💪')}</span>
-            <span>${escapar(sessao.titulo)}</span>
-        </div>
+        <div class="day-title">${escapar(sessao.titulo)}</div>
         <div class="day-arrow active">▼</div>
     `;
     cabecalho.addEventListener('click', () => {
@@ -365,11 +372,12 @@ function criarItemExercicio(exercicio, indice) {
     item.dataset.indice = String(indice);
 
     const idCheck = `ex-check-${indice}`;
-    const nota = exercicio.nota
-        ? `<div class="exercise-note">${escapar(exercicio.nota)}</div>` : '';
+    const notaLimpa = semEmojiInicial(exercicio.nota);
+    const nota = notaLimpa
+        ? `<div class="exercise-note">${escapar(notaLimpa)}</div>` : '';
     const ultimaCarga = ler(CHAVES.peso(exercicio.id), null);
     const dicaCarga = ultimaCarga
-        ? `<span class="last-weight">última: ${escapar(ultimaCarga)}kg</span>` : '';
+        ? `<span class="last-weight">última ${escapar(ultimaCarga)}kg</span>` : '';
 
     const etiquetas = [
         `<span class="exercise-tag tag-group">${escapar(exercicio.grupoLabel || '')}</span>`,
@@ -389,16 +397,15 @@ function criarItemExercicio(exercicio, indice) {
                 <span class="exercise-name">${escapar(exercicio.nome)}</span>
                 <span class="exercise-reps">${escapar(exercicio.reps)}</span>
                 <div class="weight-tracker">
-                    <span class="weight-label">⚖️</span>
                     <input type="number" class="weight-field" data-exercicio="${escapar(exercicio.id)}"
                         placeholder="0" step="0.5" min="0" max="500">
                     <span class="weight-unit">kg</span>
-                    ${dicaCarga}
                 </div>
+                ${dicaCarga}
                 <div class="exercise-tags">${etiquetas}</div>
                 <div class="exercise-link exercise-actions">
                     <button class="tutorial-btn" data-acao="tutorial">Tutorial</button>
-                    <button class="icon-btn" data-acao="trocar" title="Trocar por outro exercício">🔄 Trocar</button>
+                    <button class="icon-btn" data-acao="trocar" title="Trocar por outro exercício">Trocar</button>
                     <button class="icon-btn danger" data-acao="remover" title="Tirar do treino">✕</button>
                 </div>
                 ${nota}
@@ -440,7 +447,7 @@ function blocoTutorial(exercicio) {
             <div class="gif-wrapper">
                 <div class="gif-fallback">
                     Esse exercício ainda não tem GIF no banco.
-                    <br><a href="${escapar(busca)}" target="_blank" rel="noopener">🔎 Ver tutorial no YouTube</a>
+                    <br><a href="${escapar(busca)}" target="_blank" rel="noopener">Ver tutorial no YouTube</a>
                 </div>
             </div>`;
     }
@@ -449,7 +456,7 @@ function blocoTutorial(exercicio) {
     return `
         <div class="gif-wrapper">
             <img src="${escapar(gif)}" alt="Demonstração: ${escapar(exercicio.nome)}" loading="lazy"
-                 onerror="this.parentNode.innerHTML='&lt;div class=\\'gif-fallback\\'&gt;Não consegui carregar o GIF.&lt;br&gt;&lt;a href=&quot;${escapar(busca)}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;🔎 Ver tutorial no YouTube&lt;/a&gt;&lt;/div&gt;'">
+                 onerror="this.parentNode.innerHTML='&lt;div class=\\'gif-fallback\\'&gt;Não consegui carregar o GIF.&lt;br&gt;&lt;a href=&quot;${escapar(busca)}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Ver tutorial no YouTube&lt;/a&gt;&lt;/div&gt;'">
         </div>`;
 }
 
@@ -463,7 +470,7 @@ function trocar(indice) {
 
     const novo = estado.sessao.exercicios[indice].nome;
     if (novo === anterior) {
-        mostrarToast('Acabaram as opções desse grupo no banco 😅');
+        mostrarToast('Acabaram as opções desse grupo no banco');
         return;
     }
     salvarSessao();
@@ -474,7 +481,7 @@ function trocar(indice) {
 function remover(indice) {
     if (!estado.sessao) return;
     if (estado.sessao.exercicios.length <= 1) {
-        mostrarToast('O treino precisa de pelo menos um exercício 🙂');
+        mostrarToast('O treino precisa de pelo menos um exercício');
         return;
     }
     const removido = estado.sessao.exercicios.splice(indice, 1)[0];
@@ -548,7 +555,7 @@ function lerHistorico() {
 function finalizarTreino() {
     if (!estado.sessao) return;
     if (estado.sessao.finalizadoEm) {
-        mostrarToast('Esse treino já foi salvo. Gera outra série pra um novo 💪');
+        mostrarToast('Esse treino já foi salvo. Gera outra série pra um novo');
         return;
     }
 
@@ -568,13 +575,13 @@ function finalizarTreino() {
     renderHistorico();
     atualizarEstatisticas();
     atualizarBotaoFinalizar();
-    mostrarToast('Treino salvo! O próximo já vem diferente 🎲');
+    mostrarToast('Treino salvo. O próximo já vem diferente');
 }
 
 function atualizarBotaoFinalizar() {
     const botao = document.getElementById('finishBtn');
     const salvo = !!(estado.sessao && estado.sessao.finalizadoEm);
-    botao.textContent = salvo ? '✅ Treino salvo' : '✅ Malhei Hoje';
+    botao.textContent = salvo ? 'Treino salvo' : 'Malhei hoje';
     botao.disabled = salvo;
     botao.style.opacity = salvo ? '0.6' : '';
 }
@@ -585,7 +592,7 @@ function renderHistorico() {
 
     if (!historico.length) {
         lista.innerHTML = `<div class="history-empty">
-            Nenhum treino salvo ainda. Monta sua série e toca em <strong>Malhei Hoje</strong>.<br>
+            Nenhum treino salvo ainda. Monta sua série e toca em <strong>Malhei hoje</strong>.<br>
             É o histórico que faz o gerador variar os exercícios.
         </div>`;
         return;
@@ -644,14 +651,14 @@ function renderPicker(termo) {
     }).slice(0, 60);
 
     if (!resultados.length) {
-        lista.innerHTML = '<div class="picker-empty">Nada encontrado com esse termo 🤔</div>';
+        lista.innerHTML = '<div class="picker-empty">Nada encontrado com esse termo</div>';
         return;
     }
 
     lista.innerHTML = resultados.map(ex => `
         <div class="picker-item" data-id="${escapar(ex.id)}">
             <span class="picker-item-name">${escapar(ex.nome)}</span>
-            <span class="picker-item-meta">${escapar(GRUPOS[ex.grupo].label)} ${ex.gif ? '🎬' : ''}</span>
+            <span class="picker-item-meta">${escapar(GRUPOS[ex.grupo].label)}${ex.gif ? ' · gif' : ''}</span>
         </div>
     `).join('');
 
@@ -661,7 +668,7 @@ function renderPicker(termo) {
             salvarSessao();
             renderSessao();
             fecharPicker();
-            mostrarToast('Exercício adicionado 💪');
+            mostrarToast('Exercício adicionado');
         });
     });
 }
@@ -672,7 +679,7 @@ function textoDoTreino() {
     const sessao = estado.sessao;
     if (!sessao) return '';
     const linhas = [
-        `${sessao.emoji || '💪'} TREINO DO DIA — ${sessao.titulo}`,
+        `TREINO DO DIA — ${sessao.titulo}`,
         `${sessao.resumo}`,
         `Objetivo: ${sessao.objetivoLabel} · Descanso: ${sessao.descanso}`,
         ''
@@ -752,12 +759,12 @@ function importarDeClaude(bruto) {
         const limpo = String(bruto).trim().replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
         dados = JSON.parse(limpo);
     } catch (erro) {
-        mostrarToast('JSON inválido — copia de novo a resposta do Claude 🤔');
+        mostrarToast('JSON inválido — copia de novo a resposta do Claude');
         return false;
     }
 
     if (!dados || !Array.isArray(dados.exercicios) || !dados.exercicios.length) {
-        mostrarToast('O JSON precisa ter uma lista "exercicios" 🤔');
+        mostrarToast('O JSON precisa ter uma lista "exercicios"');
         return false;
     }
 
@@ -790,7 +797,7 @@ function importarDeClaude(bruto) {
         complementos: [],
         foraDoTreino: [],
         titulo: String(dados.titulo || 'Treino do Claude'),
-        emoji: '🤖',
+        emoji: '',
         objetivo: objetivo,
         objetivoLabel: PRESCRICOES[objetivo].label,
         descanso: PRESCRICOES[objetivo].descanso,
@@ -820,7 +827,7 @@ function carregarPlanoDaUrl() {
         const ok = importarDeClaude(bruto);
         if (ok) {
             history.replaceState(null, '', window.location.pathname + window.location.search);
-            mostrarToast('Treino carregado do link 🤖');
+            mostrarToast('Treino carregado do link');
         }
         return ok;
     } catch (erro) {
@@ -836,7 +843,7 @@ function ligarEventos() {
     document.getElementById('finishBtn').addEventListener('click', finalizarTreino);
     document.getElementById('addExerciseBtn').addEventListener('click', abrirPicker);
     document.getElementById('copyBtn').addEventListener('click', () => {
-        copiar(textoDoTreino(), 'Treino copiado! Cola onde quiser 📋');
+        copiar(textoDoTreino(), 'Treino copiado');
     });
 
     document.getElementById('optionsToggle').addEventListener('click', () => {
@@ -856,12 +863,12 @@ function ligarEventos() {
     document.getElementById('claudeBtn').addEventListener('click', abrirClaude);
     document.getElementById('claudeCloseBtn').addEventListener('click', fecharClaude);
     document.getElementById('copyPromptBtn').addEventListener('click', () => {
-        copiar(promptParaClaude(), 'Prompt copiado! Cola no Claude do seu PC 🤖');
+        copiar(promptParaClaude(), 'Prompt copiado. Cola no Claude do seu PC');
     });
     document.getElementById('claudeImportBtn').addEventListener('click', () => {
         if (importarDeClaude(document.getElementById('claudeInput').value)) {
             fecharClaude();
-            mostrarToast('Treino do Claude importado 🤖');
+            mostrarToast('Treino do Claude importado');
         }
     });
 

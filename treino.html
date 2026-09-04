@@ -17,6 +17,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Treino">
 
+    <!-- Tipografia: Barlow Condensed nos títulos, Barlow no corpo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap">
+
     <!-- Base CSS -->
     <link rel="stylesheet" href="styles/base.css">
 
@@ -45,7 +51,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>💪 Meu Treino 💪</h1>
+            <h1>Meu Treino</h1>
             <div class="subtitle">Carregando...</div>
         </div>
 
@@ -57,7 +63,7 @@
             <div class="stat-box">
                 <div class="stat-label">Peso Atual</div>
                 <div class="stat-value" id="currentWeight">-</div>
-                <button class="weight-update-btn" onclick="openWeightModal()">📊 Atualizar</button>
+                <button class="weight-update-btn" onclick="openWeightModal()">Atualizar</button>
             </div>
             <div class="stat-box">
                 <div class="stat-label">Meta</div>
@@ -68,7 +74,7 @@
 
         <div class="progress-container">
             <div class="progress-box">
-                <div class="progress-title">🎯 Progresso para a Meta</div>
+                <div class="progress-title">Progresso para a meta</div>
                 <div class="progress-circle-container">
                     <svg class="progress-circle" viewBox="0 0 200 200">
                         <circle class="progress-circle-bg" cx="100" cy="100" r="85"></circle>
@@ -83,7 +89,7 @@
             </div>
 
             <div class="workout-counter-box">
-                <div class="workout-counter-title">💪 Total de Treinos</div>
+                <div class="workout-counter-title">Total de treinos</div>
                 <div class="workout-counter-display" id="workoutCounter">0</div>
                 <div class="workout-counter-label">treinos realizados</div>
             </div>
@@ -94,13 +100,13 @@
             <!-- Workout days will be dynamically inserted here by JavaScript -->
 
             <div class="reset-section">
-                <button class="reset-btn" onclick="resetWorkoutProgress()">🔄 Resetar Progresso</button>
+                <button class="reset-btn" onclick="resetWorkoutProgress()">Resetar progresso</button>
             </div>
 
             <div class="footer">
-                <p>💪 Foco, disciplina e resultados! 💪</p>
+                <p>Foco, disciplina e resultados.</p>
                 <p style="margin-top:12px">
-                    <a id="dailyLink" href="montar.html" style="color:inherit">🎯 Montar um treino avulso pra hoje</a>
+                    <a id="dailyLink" href="montar.html" >Montar um treino avulso pra hoje</a>
                 </p>
             </div>
         </div>
@@ -110,7 +116,7 @@
     <div class="modal" id="weightModal">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-title">⚖️ Atualizar Peso</div>
+                <div class="modal-title">Atualizar peso</div>
                 <div class="modal-subtitle">Digite seu peso atual em kg</div>
             </div>
             <div class="weight-input-group">

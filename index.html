@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Treinos Academia</title>
+    <title>Treinos</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="resources/3c0be770-6a0b-4a65-a461-f089ffc1349f.jfif">
@@ -13,331 +14,278 @@
 
     <!-- Meta tags adicionais para PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Treinos">
 
+    <!-- Tipografia: Barlow Condensed nos títulos, Barlow no corpo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap">
+
     <style>
+        :root {
+            --paper: #faf8f4;
+            --paper-raised: #ffffff;
+            --ink: #17150f;
+            --ink-2: #55504a;
+            --ink-3: #8b857b;
+            --rule: #e4dfd5;
+            --rule-2: #cec7b9;
+
+            --font-display: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+            --font-body: 'Barlow', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ink);
+            background: var(--paper);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 800px;
-            width: 100%;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 26px;
+        }
+
+        /* -------------------------------------------------------- Topo */
+
+        header {
+            padding: 58px 0 20px;
+            border-bottom: 2px solid var(--ink);
         }
 
         h1 {
-            color: white;
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(38px, 11vw, 66px);
+            line-height: 0.92;
+            letter-spacing: 0.005em;
+            text-transform: uppercase;
         }
 
         .subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
+            margin-top: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--ink-3);
         }
 
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+        /* ------------------------------------------------------ Seções */
+
+        .section-label {
+            padding: 34px 0 4px;
+            font-size: 10.5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--ink-3);
         }
+
+        /* ------------------------------------------------------- Cards */
 
         .card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            display: block;
+            padding: 22px 0;
+            border-top: 1px solid var(--rule);
             text-decoration: none;
             color: inherit;
-            display: block;
+            transition: background 0.15s ease;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            background: var(--paper-raised);
         }
 
-        .card-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+        .card-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
         }
 
         .card-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 30px;
+            line-height: 1.05;
+            text-transform: uppercase;
+            letter-spacing: 0.01em;
         }
 
         .card-subtitle {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 15px;
+            flex-shrink: 0;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.11em;
+            color: var(--ink-3);
+            text-align: right;
         }
 
         .card-details {
-            background: #f5f5f5;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #555;
-            line-height: 1.6;
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--ink-2);
+            max-width: 62ch;
         }
 
-        .card-details strong {
-            color: #333;
+        .card-details b {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        /* Cada pessoa tem um filete de acento no topo do próprio card */
+        .card.destaque {
+            border-top-width: 2px;
+            border-top-color: var(--ink);
+        }
+
+        .card.henrique,
+        .card.mari,
+        .card.eunice {
+            border-top-width: 2px;
         }
 
         .card.henrique {
-            border-top: 5px solid #9333ea;
-        }
-
-        .card.henrique:hover {
-            border-top-color: #7e22ce;
+            border-top-color: #6d28d9;
         }
 
         .card.mari {
-            border-top: 5px solid #ec4899;
-        }
-
-        .card.mari:hover {
-            border-top-color: #db2777;
+            border-top-color: #be1558;
         }
 
         .card.eunice {
-            border-top: 5px solid #14b8a6;
+            border-top-color: #0f766e;
         }
 
-        .card.eunice:hover {
-            border-top-color: #0d9488;
-        }
-
-        .card.dia {
-            border-top: 5px solid #f97316;
-            background: linear-gradient(160deg, #fff 60%, #fff7ed 100%);
-        }
-
-        .card.dia:hover {
-            border-top-color: #ea580c;
+        .card.dia .card-title {
+            color: #b4530f;
         }
 
         .card-badge {
             display: inline-block;
-            background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
-            color: white;
-            font-size: 0.7rem;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 10px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 12px;
+            letter-spacing: 0.16em;
+            color: #b4530f;
         }
 
-        .section-label {
-            color: rgba(255, 255, 255, 0.85);
-            text-align: center;
-            font-size: 0.85rem;
+        /* ------------------------------------------------------ Rodapé */
+
+        footer {
+            margin-top: 44px;
+            padding: 20px 0 52px;
+            border-top: 1px solid var(--rule);
+            font-size: 10.5px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 45px 0 -5px;
+            letter-spacing: 0.13em;
+            color: var(--ink-3);
         }
 
-        /* Tablet */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
+        @media (max-width: 720px) {
+            .container {
+                padding: 0 18px;
             }
 
-            h1 {
-                font-size: 2.2rem;
+            header {
+                padding: 40px 0 16px;
             }
 
-            .cards-container {
-                gap: 25px;
-            }
-
-            .card {
-                padding: 35px 25px;
-            }
-        }
-
-        /* Mobile */
-        @media (max-width: 640px) {
-            body {
-                padding: 15px 10px;
-            }
-
-            h1 {
-                font-size: 2rem;
-                margin-bottom: 8px;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-                margin-bottom: 30px;
-            }
-
-            .cards-container {
-                gap: 20px;
-                grid-template-columns: 1fr;
-            }
-
-            .card {
-                padding: 30px 20px;
-                min-height: 220px;
-            }
-
-            .card-icon {
-                font-size: 3.5rem;
-                margin-bottom: 15px;
+            .card-head {
+                display: block;
             }
 
             .card-title {
-                font-size: 1.5rem;
+                font-size: 26px;
             }
 
             .card-subtitle {
-                font-size: 0.95rem;
+                display: block;
+                margin-top: 5px;
+                text-align: left;
             }
-
-            .card-details {
-                padding: 12px;
-                font-size: 0.85rem;
-            }
-
-            .footer {
-                margin-top: 30px;
-                font-size: 0.85rem;
-            }
-        }
-
-        /* Small mobile */
-        @media (max-width: 480px) {
-            body {
-                padding: 10px 8px;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .subtitle {
-                font-size: 0.95rem;
-            }
-
-            .cards-container {
-                gap: 18px;
-            }
-
-            .card {
-                padding: 25px 18px;
-            }
-
-            .card-icon {
-                font-size: 3rem;
-            }
-
-            .card-title {
-                font-size: 1.4rem;
-            }
-        }
-
-        .footer {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 40px;
-            font-size: 0.9rem;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Treinos Academia</h1>
-        <p class="subtitle">Escolha seu treino personalizado</p>
+        <header>
+            <h1>Treinos</h1>
+            <p class="subtitle">Academia · desde 30 de outubro de 2025</p>
+        </header>
 
-        <div class="cards-container">
-            <!-- Card Treino do Dia -->
-            <a href="montar.html" class="card dia">
-                <div class="card-icon">🎯</div>
-                <div class="card-badge">Novo</div>
+        <div class="section-label">Monte agora</div>
+
+        <a href="montar.html" class="card destaque dia">
+            <div class="card-badge">Novo</div>
+            <div class="card-head">
                 <div class="card-title">Treino do Dia</div>
-                <div class="card-subtitle">Monta sua série na hora</div>
-                <div class="card-details">
-                    <strong>Como funciona:</strong> escolhe o que vai malhar hoje<br>
-                    <strong>A série se renova:</strong> exercícios diferentes a cada treino<br>
-                    <strong>Inclui:</strong> GIF, carga e check por exercício
-                </div>
-            </a>
-        </div>
+                <div class="card-subtitle">Série montada na hora</div>
+            </div>
+            <div class="card-details">
+                Você escolhe o que vai malhar hoje e a série sai pronta — com o volume
+                distribuído por grupo e um complemento que faz sentido junto.
+                <b>A cada treino vêm exercícios diferentes.</b> GIF, carga e check por exercício.
+            </div>
+        </a>
 
         <div class="section-label">Séries fixas</div>
 
-        <div class="cards-container">
-            <!-- Card Henrique -->
-            <a href="treino.html?user=henrique" class="card henrique">
-                <div class="card-icon">💪</div>
+        <a href="treino.html?user=henrique" class="card henrique">
+            <div class="card-head">
                 <div class="card-title">Henrique Bon</div>
-                <div class="card-subtitle">Treino de Hipertrofia</div>
-                <div class="card-details">
-                    <strong>Objetivo:</strong> Ganho de massa muscular<br>
-                    <strong>Altura:</strong> 1.85m<br>
-                    <strong>Peso Atual:</strong> 81kg<br>
-                    <strong>Meta:</strong> 85kg
-                </div>
-            </a>
+                <div class="card-subtitle">Hipertrofia · 3 dias</div>
+            </div>
+            <div class="card-details">
+                Ganho de massa muscular. <b>1,85 m</b> · 81 kg hoje, meta de 85 kg.
+            </div>
+        </a>
 
-            <!-- Card Mariana -->
-            <a href="treino.html?user=mari" class="card mari">
-                <div class="card-icon">🍑</div>
+        <a href="treino.html?user=mari" class="card mari">
+            <div class="card-head">
                 <div class="card-title">Mariana</div>
-                <div class="card-subtitle">Treino Personalizado</div>
-                <div class="card-details">
-                    <strong>Objetivo:</strong> Desenvolvimento + Emagrecimento<br>
-                    <strong>Altura:</strong> 1.69m<br>
-                    <strong>Peso Atual:</strong> 77kg<br>
-                    <strong>Meta:</strong> 65kg
-                </div>
-            </a>
+                <div class="card-subtitle">Perna e glúteo</div>
+            </div>
+            <div class="card-details">
+                Desenvolvimento e emagrecimento. <b>1,69 m</b> · 77 kg hoje, meta de 65 kg.
+            </div>
+        </a>
 
-            <!-- Card Eunice -->
-            <a href="treino.html?user=eunice" class="card eunice">
-                <div class="card-icon">💚</div>
+        <a href="treino.html?user=eunice" class="card eunice">
+            <div class="card-head">
                 <div class="card-title">Eunice</div>
-                <div class="card-subtitle">Fortalecimento Muscular</div>
-                <div class="card-details">
-                    <strong>Objetivo:</strong> Fortalecimento muscular<br>
-                    <strong>Treinos:</strong> 3 dias por semana<br>
-                    <strong>Foco:</strong> Membros inferiores e superiores
-                </div>
-            </a>
-        </div>
+                <div class="card-subtitle">Fortalecimento · 3 dias</div>
+            </div>
+            <div class="card-details">
+                Fortalecimento muscular, com foco em membros inferiores e superiores.
+            </div>
+        </a>
 
-        <div class="footer">
-            Início dos treinos: 30 de Outubro de 2025
-        </div>
+        <footer>Foco, disciplina e resultados.</footer>
     </div>
 </body>
+
 </html>

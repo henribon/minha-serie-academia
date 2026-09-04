@@ -17,6 +17,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Treino do Dia">
 
+    <!-- Tipografia: Barlow Condensed nos títulos, Barlow no corpo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap">
+
     <!-- Base CSS -->
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/montar.css">
@@ -41,22 +47,22 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 Treino do Dia</h1>
+            <h1>Treino do Dia</h1>
             <div class="subtitle" id="headerSubtitle">Monta a sua série de hoje</div>
-            <a href="index.html" class="back-link">← Voltar para os treinos fixos</a>
+            <a href="index.html" class="back-link">Voltar para os treinos fixos</a>
         </div>
 
         <div class="stats">
             <div class="stat-box">
-                <div class="stat-label">Treinos Feitos</div>
+                <div class="stat-label">Treinos feitos</div>
                 <div class="stat-value" id="statTreinos">0</div>
             </div>
             <div class="stat-box">
-                <div class="stat-label">Exercícios no Banco</div>
+                <div class="stat-label">Exercícios no banco</div>
                 <div class="stat-value" id="statBanco">0</div>
             </div>
             <div class="stat-box">
-                <div class="stat-label">Último Treino</div>
+                <div class="stat-label">Último treino</div>
                 <div class="stat-value" id="statUltimo">—</div>
             </div>
         </div>
@@ -64,7 +70,7 @@
         <!-- ============================================ MONTADOR ========= -->
         <div class="builder">
             <div class="builder-step">
-                <div class="builder-title">💭 O que vou malhar hoje?</div>
+                <div class="builder-title">O que vou malhar hoje?</div>
                 <div class="builder-hint">Escolhe um ou mais grupos. A gente completa a série com o
                     que faz sentido junto (ex.: Costas → entra posterior de ombro).</div>
 
@@ -72,13 +78,13 @@
                 <div class="chip-grid" id="chipGrid"></div>
 
                 <div class="builder-hint" style="margin-top:14px;margin-bottom:0">
-                    <strong>Extras:</strong> grupos pequenos que normalmente entram como complemento.
+                    Grupos pequenos, que normalmente entram sozinhos como complemento.
                 </div>
                 <div class="chip-grid" id="chipGridSecundario" style="margin-top:8px"></div>
             </div>
 
             <div class="builder-step">
-                <button class="options-toggle" id="optionsToggle">⚙️ Ajustar duração, objetivo e equipamento</button>
+                <button class="options-toggle" id="optionsToggle">Ajustar duração, objetivo e equipamento</button>
                 <div class="options-panel" id="optionsPanel">
                     <div class="option-group">
                         <label class="option-label">Duração do treino</label>
@@ -99,7 +105,7 @@
                 </div>
             </div>
 
-            <button class="generate-btn" id="generateBtn">⚡ Montar meu treino</button>
+            <button class="generate-btn" id="generateBtn">Montar meu treino</button>
         </div>
 
         <!-- ============================================ SÉRIE GERADA ===== -->
@@ -110,25 +116,25 @@
             <div class="workout-section" id="workoutSection"></div>
 
             <div class="session-actions">
-                <button class="action-btn primary" id="finishBtn">✅ Malhei Hoje</button>
-                <button class="action-btn" id="regenerateBtn">🎲 Gerar outra série</button>
-                <button class="action-btn" id="addExerciseBtn">➕ Adicionar exercício</button>
-                <button class="action-btn" id="copyBtn">📋 Copiar treino</button>
-                <button class="action-btn" id="claudeBtn">🤖 Usar o Claude do meu PC</button>
+                <button class="action-btn primary" id="finishBtn">Malhei hoje</button>
+                <button class="action-btn" id="regenerateBtn">Gerar outra série</button>
+                <button class="action-btn" id="addExerciseBtn">Adicionar exercício</button>
+                <button class="action-btn" id="copyBtn">Copiar treino</button>
+                <button class="action-btn" id="claudeBtn">Montar com o Claude</button>
             </div>
         </div>
 
         <!-- ============================================ HISTÓRICO ======== -->
         <div class="history-section">
             <div class="history-header" id="historyHeader">
-                <span class="history-title">📚 Histórico de treinos</span>
+                <span class="history-title">Histórico de treinos</span>
                 <span class="day-arrow" id="historyArrow">▼</span>
             </div>
             <div class="history-list" id="historyList"></div>
         </div>
 
         <div class="footer">
-            <p>💪 Foco, disciplina e resultados! 💪</p>
+            <p>Foco, disciplina e resultados.</p>
         </div>
     </div>
 
@@ -136,7 +142,7 @@
     <div class="modal" id="pickerModal">
         <div class="modal-content wide">
             <div class="modal-header">
-                <div class="modal-title">➕ Adicionar exercício</div>
+                <div class="modal-title">Adicionar exercício</div>
                 <div class="modal-subtitle">Busca pelo nome ou pelo grupo muscular</div>
             </div>
             <input type="text" class="search-input" id="pickerSearch" placeholder="Ex.: remada, agachamento, tríceps...">
@@ -151,12 +157,12 @@
     <div class="modal" id="claudeModal">
         <div class="modal-content wide">
             <div class="modal-header">
-                <div class="modal-title">🤖 Montar com o Claude</div>
+                <div class="modal-title">Montar com o Claude</div>
                 <div class="modal-subtitle">Deixa o Claude do seu PC montar (ou revisar) a série</div>
             </div>
             <div class="claude-steps" id="claudeSteps"></div>
             <button class="action-btn primary" id="copyPromptBtn" style="width:100%;margin-bottom:14px">
-                📋 Copiar prompt pro Claude
+                Copiar prompt pro Claude
             </button>
             <div class="claude-steps" style="margin-bottom:6px">
                 Cole aqui o JSON que o Claude devolver:
