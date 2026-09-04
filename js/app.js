@@ -70,6 +70,13 @@ function renderPage() {
     const direction = currentConfig.targetWeight > currentConfig.initialWeight ? 'Faltam' : 'Faltam';
     document.getElementById('progressText').textContent = `${direction} ${difference}kg`;
 
+    // Link para o Treino do Dia, mantendo o tema da pessoa
+    const dailyLink = document.getElementById('dailyLink');
+    if (dailyLink) {
+        const user = new URLSearchParams(window.location.search).get('user');
+        if (user) dailyLink.href = `montar.html?user=${encodeURIComponent(user)}`;
+    }
+
     // Render workout days
     renderWorkoutDays();
 }
