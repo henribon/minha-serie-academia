@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treino do Dia</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="resources/3c0be770-6a0b-4a65-a461-f089ffc1349f.jfif">
+
+    <!-- Apple Touch Icon para iPhone/iPad -->
+    <link rel="apple-touch-icon" href="resources/3c0be770-6a0b-4a65-a461-f089ffc1349f.jfif">
+
+    <!-- Meta tags adicionais para PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Treino do Dia">
+
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/montar.css">
+
+    <!-- Tema: usa o da pessoa quando vem do card dela, senão o tema do dia -->
+    <script>
+        (function () {
+            const usuario = new URLSearchParams(window.location.search).get('user');
+            const temas = {
+                henrique: 'theme-henrique.css',
+                mari: 'theme-mari.css',
+                eunice: 'theme-eunice.css'
+            };
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'styles/' + (temas[usuario] || 'theme-dia.css');
+            document.head.appendChild(link);
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Treino do Dia</h1>
+            <div class="subtitle" id="headerSubtitle">Monta a sua série de hoje</div>
+            <a href="index.html" class="back-link">← Voltar para os treinos fixos</a>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Treinos Feitos</div>
+                <div class="stat-value" id="statTreinos">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Exercícios no Banco</div>
+                <div class="stat-value" id="statBanco">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Último Treino</div>
+                <div class="stat-value" id="statUltimo">—</div>
+            </div>
+        </div>
+
+        <!-- ============================================ MONTADOR ========= -->
+        <div class="builder">
+            <div class="builder-step">
+                <div class="builder-title">💭 O que vou malhar hoje?</div>
+                <div class="builder-hint">Escolhe um ou mais grupos. A gente completa a série com o
+                    que faz sentido junto (ex.: Costas → entra posterior de ombro).</div>
+
+                <div class="preset-row" id="presetRow"></div>
+                <div class="chip-grid" id="chipGrid"></div>
+
+                <div class="builder-hint" style="margin-top:14px;margin-bottom:0">
+                    <strong>Extras:</strong> grupos pequenos que normalmente entram como complemento.
+                </div>
+                <div class="chip-grid" id="chipGridSecundario" style="margin-top:8px"></div>
+            </div>
+
+            <div class="builder-step">
+                <button class="options-toggle" id="optionsToggle">⚙️ Ajustar duração, objetivo e equipamento</button>
+                <div class="options-panel" id="optionsPanel">
+                    <div class="option-group">
+                        <label class="option-label">Duração do treino</label>
+                        <div class="option-row" id="optDuracao"></div>
+                    </div>
+                    <div class="option-group">
+                        <label class="option-label">Objetivo</label>
+                        <div class="option-row" id="optObjetivo"></div>
+                    </div>
+                    <div class="option-group">
+                        <label class="option-label">Nível</label>
+                        <div class="option-row" id="optNivel"></div>
+                    </div>
+                    <div class="option-group">
+                        <label class="option-label">Equipamento disponível</label>
+                        <div class="option-row" id="optEquipamento"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="generate-btn" id="generateBtn">⚡ Montar meu treino</button>
+        </div>
+
+        <!-- ============================================ SÉRIE GERADA ===== -->
+        <div id="sessionArea" hidden>
+            <div class="session-summary" id="sessionSummary"></div>
+            <div class="session-warning" id="sessionWarning" hidden></div>
+
+            <div class="workout-section" id="workoutSection"></div>
+
+            <div class="session-actions">
+                <button class="action-btn primary" id="finishBtn">✅ Malhei Hoje</button>
+                <button class="action-btn" id="regenerateBtn">🎲 Gerar outra série</button>
+                <button class="action-btn" id="addExerciseBtn">➕ Adicionar exercício</button>
+                <button class="action-btn" id="copyBtn">📋 Copiar treino</button>
+                <button class="action-btn" id="claudeBtn">🤖 Usar o Claude do meu PC</button>
+            </div>
+        </div>
+
+        <!-- ============================================ HISTÓRICO ======== -->
+        <div class="history-section">
+            <div class="history-header" id="historyHeader">
+                <span class="history-title">📚 Histórico de treinos</span>
+                <span class="day-arrow" id="historyArrow">▼</span>
+            </div>
+            <div class="history-list" id="historyList"></div>
+        </div>
+
+        <div class="footer">
+            <p>💪 Foco, disciplina e resultados! 💪</p>
+        </div>
+    </div>
+
+    <!-- Modal: adicionar exercício manualmente -->
+    <div class="modal" id="pickerModal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <div class="modal-title">➕ Adicionar exercício</div>
+                <div class="modal-subtitle">Busca pelo nome ou pelo grupo muscular</div>
+            </div>
+            <input type="text" class="search-input" id="pickerSearch" placeholder="Ex.: remada, agachamento, tríceps...">
+            <div class="picker-list" id="pickerList"></div>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-secondary" id="pickerCloseBtn">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: ponte com o Claude do PC -->
+    <div class="modal" id="claudeModal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <div class="modal-title">🤖 Montar com o Claude</div>
+                <div class="modal-subtitle">Deixa o Claude do seu PC montar (ou revisar) a série</div>
+            </div>
+            <div class="claude-steps" id="claudeSteps"></div>
+            <button class="action-btn primary" id="copyPromptBtn" style="width:100%;margin-bottom:14px">
+                📋 Copiar prompt pro Claude
+            </button>
+            <div class="claude-steps" style="margin-bottom:6px">
+                Cole aqui o JSON que o Claude devolver:
+            </div>
+            <textarea class="claude-textarea" id="claudeInput" placeholder='{"titulo": "...", "exercicios": [...]}'></textarea>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-secondary" id="claudeCloseBtn">Fechar</button>
+                <button class="modal-btn modal-btn-primary" id="claudeImportBtn">Importar treino</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="js/exercise-db.js"></script>
+    <script src="js/generator.js"></script>
+    <script src="js/montar.js"></script>
+</body>
+
+</html>

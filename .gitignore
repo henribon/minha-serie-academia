@@ -1,0 +1,6 @@
+# Histórico de treinos gerados pelo CLI (tools/gerar-treino.js)
+.treino-historico.json
+
+# Sistema
+.DS_Store
+Thumbs.db

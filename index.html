@@ -134,6 +134,37 @@
             border-top-color: #0d9488;
         }
 
+        .card.dia {
+            border-top: 5px solid #f97316;
+            background: linear-gradient(160deg, #fff 60%, #fff7ed 100%);
+        }
+
+        .card.dia:hover {
+            border-top-color: #ea580c;
+        }
+
+        .card-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .section-label {
+            color: rgba(255, 255, 255, 0.85);
+            text-align: center;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 45px 0 -5px;
+        }
+
         /* Tablet */
         @media (max-width: 768px) {
             body {
@@ -246,6 +277,23 @@
     <div class="container">
         <h1>Treinos Academia</h1>
         <p class="subtitle">Escolha seu treino personalizado</p>
+
+        <div class="cards-container">
+            <!-- Card Treino do Dia -->
+            <a href="montar.html" class="card dia">
+                <div class="card-icon">🎯</div>
+                <div class="card-badge">Novo</div>
+                <div class="card-title">Treino do Dia</div>
+                <div class="card-subtitle">Monta sua série na hora</div>
+                <div class="card-details">
+                    <strong>Como funciona:</strong> escolhe o que vai malhar hoje<br>
+                    <strong>A série se renova:</strong> exercícios diferentes a cada treino<br>
+                    <strong>Inclui:</strong> GIF, carga e check por exercício
+                </div>
+            </a>
+        </div>
+
+        <div class="section-label">Séries fixas</div>
 
         <div class="cards-container">
             <!-- Card Henrique -->
