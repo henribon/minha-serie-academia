@@ -1,130 +1,130 @@
-/* Treino do Dia - estilos do montador de série
-   Complementa base.css e usa as mesmas variáveis dos temas. */
+/* Treino do Dia — o montador da série.
+   Mesma gramática de base.css: papel, tinta, filete. */
 
 /* ------------------------------------------------------------- Montador */
 
 .builder {
-    padding: 25px 30px 5px;
+    padding: 30px 0 8px;
 }
 
 .builder-step {
-    margin-bottom: 26px;
+    margin-bottom: 30px;
 }
 
 .builder-title {
-    font-size: 1.15em;
-    font-weight: bold;
-    color: var(--color-exercise);
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    margin-bottom: 6px;
 }
 
 .builder-hint {
-    color: #6b7280;
-    font-size: 0.88em;
-    margin-bottom: 14px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin-bottom: 16px;
+    max-width: 56ch;
 }
 
-/* Chips de grupo muscular */
-
-.chip-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 11px 16px;
-    border-radius: 30px;
-    border: 2px solid #e5e7eb;
-    background: #fff;
-    color: #374151;
-    font-size: 0.95em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-}
-
-.chip:hover {
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-}
-
-.chip.selected {
-    background: var(--gradient-exercise);
-    border-color: transparent;
-    color: #fff;
-    box-shadow: var(--shadow-tutorial);
-}
-
-.chip.chip-secondary {
-    font-size: 0.85em;
-    padding: 8px 13px;
-    opacity: 0.9;
-}
-
-.chip-emoji {
-    font-size: 1.1em;
-}
-
-/* Atalhos (Push / Pull / Pernas...) */
+/* Atalhos (Empurrar / Puxar / Perna...) */
 
 .preset-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 7px;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
 }
 
 .preset-btn {
-    padding: 7px 14px;
-    border-radius: 20px;
-    border: 1px dashed var(--color-primary);
-    background: var(--color-primary-light);
-    color: var(--color-exercise);
-    font-size: 0.85em;
+    padding: 6px 11px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--rule-2);
+    font-family: var(--font-body);
+    font-size: 11px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-2);
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
+    transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .preset-btn:hover {
-    background: var(--color-primary);
-    color: #fff;
-    border-style: solid;
+    color: var(--accent);
+    border-bottom-color: var(--accent);
 }
 
-/* Ajustes finos (duração, objetivo, nível, equipamento) */
+/* Grupos musculares */
+
+.chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    padding: 10px 15px;
+    background: var(--paper-raised);
+    border: 1px solid var(--rule-2);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.chip:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+}
+
+.chip.selected {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+}
+
+.chip.chip-secondary {
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Ajustes finos */
 
 .options-toggle {
+    padding: 0;
     background: none;
     border: none;
-    color: var(--color-exercise);
-    font-size: 0.92em;
+    border-bottom: 1px solid var(--rule-2);
+    font-family: var(--font-body);
+    font-size: 11px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    color: var(--ink-2);
     cursor: pointer;
-    padding: 6px 0;
-    font-family: inherit;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+}
+
+.options-toggle:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
 }
 
 .options-panel {
     display: none;
-    margin-top: 12px;
-    padding: 18px;
-    background: #f9fafb;
-    border-radius: 14px;
-    border: 1px solid #eef0f3;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid var(--rule);
+    background: var(--paper-raised);
 }
 
 .options-panel.active {
@@ -132,7 +132,7 @@
 }
 
 .option-group {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .option-group:last-child {
@@ -141,263 +141,262 @@
 
 .option-label {
     display: block;
-    font-size: 0.78em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #6b7280;
-    margin-bottom: 8px;
-    font-weight: 700;
+    margin-bottom: 9px;
 }
 
 .option-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 7px;
 }
 
 .option-btn {
-    padding: 8px 14px;
-    border-radius: 10px;
-    border: 2px solid #e5e7eb;
-    background: #fff;
-    color: #374151;
-    font-size: 0.87em;
-    font-weight: 600;
+    padding: 8px 13px;
+    background: transparent;
+    border: 1px solid var(--rule-2);
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink-2);
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
+    transition: all 0.15s ease;
 }
 
 .option-btn:hover {
-    border-color: var(--color-primary);
+    border-color: var(--ink);
+    color: var(--ink);
 }
 
 .option-btn.selected {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper-raised);
+    font-weight: 600;
 }
 
 /* Botão principal */
 
 .generate-btn {
     width: 100%;
+    margin-top: 4px;
     padding: 18px;
-    background: var(--gradient-exercise);
-    color: #fff;
-    border: none;
-    border-radius: 14px;
-    font-size: 1.15em;
-    font-weight: bold;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    color: var(--paper);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 19px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: var(--shadow-day-header);
-    font-family: inherit;
-    margin-top: 6px;
+    transition: background 0.15s ease;
 }
 
-.generate-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-day-header-hover);
-}
-
-.generate-btn:active {
-    transform: translateY(0);
+.generate-btn:hover:not(:disabled) {
+    background: var(--accent);
+    border-color: var(--accent);
 }
 
 .generate-btn:disabled {
-    opacity: 0.5;
+    background: transparent;
+    border-color: var(--rule-2);
+    color: var(--ink-3);
     cursor: not-allowed;
-    transform: none;
 }
 
 /* --------------------------------------------------------- Série gerada */
 
 .session-summary {
-    background: var(--gradient-goal);
-    border-left: 5px solid var(--color-goal);
-    border-radius: 12px;
-    padding: 14px 18px;
-    margin: 0 30px 18px;
-    color: var(--color-goal-dark);
-    font-size: 0.93em;
+    padding: 16px 0 0;
+    font-size: 13.5px;
     line-height: 1.6;
+    color: var(--ink-2);
 }
 
 .session-summary strong {
     display: block;
-    font-size: 1.05em;
-    margin-bottom: 4px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 6px;
 }
 
 .session-warning {
-    background: var(--gradient-alert);
-    border-left: 5px solid var(--color-alert);
-    border-radius: 12px;
-    padding: 12px 18px;
-    margin: 0 30px 18px;
-    color: var(--color-alert-text);
-    font-size: 0.88em;
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-wash);
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-2);
 }
+
+/* Etiquetas do exercício (grupo, equipamento) */
 
 .exercise-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6px;
+    align-items: baseline;
+    gap: 10px;
+    flex: 1 1 100%;
 }
 
 .exercise-tag {
-    font-size: 0.72em;
-    padding: 3px 9px;
-    border-radius: 20px;
-    background: #f3f4f6;
-    color: #4b5563;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 .exercise-tag.tag-group {
-    background: var(--color-primary-light);
-    color: var(--color-exercise);
+    color: var(--accent);
 }
 
 .exercise-tag.tag-extra {
-    background: #ecfdf5;
-    color: #047857;
+    color: var(--ok);
 }
 
-/* Botões de ação dentro do exercício */
+/* Botões secundários do exercício */
 
 .exercise-link.exercise-actions {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
     flex-wrap: wrap;
     justify-content: flex-end;
+    margin-left: auto;
 }
 
 .icon-btn {
-    padding: 7px 12px;
-    border-radius: 20px;
-    border: 1px solid #e5e7eb;
-    background: #fff;
-    color: #4b5563;
-    font-size: 0.8em;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid var(--rule-2);
+    font-family: var(--font-body);
+    font-size: 11px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-2);
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
     white-space: nowrap;
+    transition: all 0.15s ease;
 }
 
 .icon-btn:hover {
-    background: #f3f4f6;
-    border-color: #d1d5db;
+    border-color: var(--ink);
+    color: var(--ink);
 }
 
 .icon-btn.danger:hover {
-    background: #fee2e2;
-    border-color: #fca5a5;
-    color: #b91c1c;
+    border-color: #a11d1d;
+    color: #a11d1d;
 }
 
 .last-weight {
-    font-size: 0.78em;
-    color: #9ca3af;
-    margin-left: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-3);
     white-space: nowrap;
 }
 
-/* Fallback quando o exercício ainda não tem GIF no banco */
+/* Quando o exercício ainda não tem GIF no banco */
 
 .gif-fallback {
-    padding: 26px 20px;
-    text-align: center;
-    color: #6b7280;
-    font-size: 0.9em;
-    line-height: 1.7;
+    padding: 22px 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-2);
 }
 
 .gif-fallback a {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 18px;
-    background: var(--gradient-tutorial);
-    color: #fff;
-    border-radius: 20px;
+    margin-top: 12px;
+    padding: 10px 16px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
     text-decoration: none;
+    font-size: 11px;
     font-weight: 600;
-    font-size: 0.95em;
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
 }
 
-/* Barra de ações da série */
+.gif-fallback a:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+/* Ações da série */
 
 .session-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    padding: 0 30px 20px;
+    gap: 8px;
+    padding: 24px 0 0;
 }
 
 .action-btn {
-    flex: 1 1 160px;
-    padding: 13px 16px;
-    border-radius: 12px;
-    border: 2px solid #e5e7eb;
-    background: #fff;
-    color: #374151;
-    font-size: 0.92em;
+    flex: 1 1 150px;
+    padding: 14px 14px;
+    background: transparent;
+    border: 1px solid var(--rule-2);
+    font-family: var(--font-body);
+    font-size: 11.5px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-2);
     cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
+    transition: all 0.15s ease;
 }
 
 .action-btn:hover {
-    border-color: var(--color-primary);
-    color: var(--color-exercise);
-    transform: translateY(-2px);
+    border-color: var(--ink);
+    color: var(--ink);
 }
 
 .action-btn.primary {
-    background: var(--gradient-exercise);
-    border-color: transparent;
-    color: #fff;
-    box-shadow: var(--shadow-tutorial);
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
 }
 
-.action-btn.primary:hover {
-    color: #fff;
+.action-btn.primary:hover:not(:disabled) {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--paper);
+}
+
+.action-btn.primary:disabled {
+    background: transparent;
+    border-color: var(--rule-2);
+    color: var(--ink-3);
+    cursor: not-allowed;
 }
 
 /* ------------------------------------------------------------ Histórico */
 
 .history-section {
-    padding: 0 30px 30px;
+    padding: 40px 0 0;
+    border-top: 1px solid var(--rule);
+    margin-top: 34px;
 }
 
 .history-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
-    padding: 14px 18px;
-    background: #f9fafb;
-    border-radius: 12px;
-    border: 1px solid #eef0f3;
+    user-select: none;
 }
 
 .history-title {
-    font-weight: bold;
-    color: #374151;
-    font-size: 1em;
+    color: var(--ink);
 }
 
 .history-list {
     display: none;
-    margin-top: 12px;
+    margin-top: 18px;
 }
 
 .history-list.active {
@@ -405,272 +404,239 @@
 }
 
 .history-item {
-    padding: 14px 16px;
-    border-left: 4px solid var(--color-primary);
-    background: #fff;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
 }
 
 .history-item-top {
     display: flex;
+    align-items: baseline;
     justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 6px;
+    gap: 12px;
+    margin-bottom: 4px;
 }
 
 .history-item-title {
-    font-weight: bold;
-    color: #374151;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    text-transform: uppercase;
+    color: var(--ink);
 }
 
 .history-item-date {
-    font-size: 0.82em;
-    color: #9ca3af;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
 }
 
 .history-item-exercises {
-    font-size: 0.85em;
-    color: #6b7280;
-    line-height: 1.6;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-2);
 }
 
 .history-empty {
-    text-align: center;
-    color: #9ca3af;
-    padding: 24px;
-    font-size: 0.9em;
+    padding: 18px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-3);
 }
 
-/* --------------------------------------------------- Modais específicos */
+/* -------------------------------------------------- Modais específicos */
 
 .modal-content.wide {
     max-width: 560px;
-    width: 100%;
-    max-height: 85vh;
+    max-height: 86vh;
     display: flex;
     flex-direction: column;
 }
 
 .search-input {
     width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e5e7eb;
-    border-radius: 10px;
-    font-size: 1em;
-    font-family: inherit;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border: 1px solid var(--rule-2);
+    background: var(--paper);
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink);
 }
 
 .search-input:focus {
     outline: none;
-    border-color: var(--color-primary);
+    border-color: var(--accent);
 }
 
 .picker-list {
-    overflow-y: auto;
     flex: 1;
     min-height: 120px;
-    margin-bottom: 12px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    border-top: 1px solid var(--rule);
 }
 
 .picker-item {
     display: flex;
+    align-items: baseline;
     justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 14px;
-    border-radius: 10px;
+    gap: 12px;
+    padding: 11px 8px;
+    border-bottom: 1px solid var(--rule);
     cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 0.15s ease;
+    transition: background 0.12s ease;
 }
 
 .picker-item:hover {
-    background: var(--color-primary-light);
-    border-color: var(--color-primary);
+    background: var(--accent-wash);
 }
 
 .picker-item-name {
-    font-weight: 600;
-    color: #374151;
-    font-size: 0.94em;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
 }
 
 .picker-item-meta {
-    font-size: 0.78em;
-    color: #9ca3af;
+    flex-shrink: 0;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-3);
 }
 
 .picker-empty {
-    text-align: center;
-    color: #9ca3af;
-    padding: 30px 10px;
-    font-size: 0.9em;
+    padding: 30px 8px;
+    font-size: 13px;
+    color: var(--ink-3);
 }
 
 .claude-steps {
-    font-size: 0.9em;
-    color: #4b5563;
-    line-height: 1.8;
-    margin-bottom: 14px;
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--ink-2);
+    margin-bottom: 16px;
 }
 
 .claude-steps code {
-    background: #f3f4f6;
-    padding: 2px 7px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    color: var(--color-exercise);
+    padding: 1px 5px;
+    background: var(--accent-wash);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em;
+    color: var(--accent-ink);
 }
 
 .claude-textarea {
     width: 100%;
     min-height: 130px;
+    margin-bottom: 16px;
     padding: 12px;
-    border: 2px solid #e5e7eb;
-    border-radius: 10px;
+    border: 1px solid var(--rule-2);
+    background: var(--paper);
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.82em;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink);
     resize: vertical;
-    margin-bottom: 12px;
 }
 
 .claude-textarea:focus {
     outline: none;
-    border-color: var(--color-primary);
+    border-color: var(--accent);
 }
 
-/* --------------------------------------------------------------- Rodapé */
+/* --------------------------------------------------------------- Avisos */
 
 .back-link {
     display: inline-block;
     margin-top: 14px;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    color: var(--ink-3);
     text-decoration: none;
-    font-size: 0.9em;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid var(--rule-2);
 }
 
 .back-link:hover {
-    color: #fff;
+    color: var(--accent);
+    border-bottom-color: var(--accent);
 }
 
 .toast {
     position: fixed;
+    opacity: 0;
+    pointer-events: none;
     left: 50%;
-    bottom: 28px;
-    transform: translate(-50%, 120%);
-    background: #111827;
-    color: #fff;
-    padding: 14px 22px;
-    border-radius: 30px;
-    font-size: 0.92em;
-    font-weight: 600;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-    z-index: 2000;
-    max-width: 90vw;
+    bottom: 26px;
+    transform: translate(-50%, 160%);
+    max-width: calc(100vw - 36px);
+    padding: 14px 20px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 13px;
+    font-weight: 500;
     text-align: center;
+    transition: transform 0.28s ease, opacity 0.28s ease;
+    z-index: 2000;
 }
 
 .toast.visible {
     transform: translate(-50%, 0);
-}
-
-/* O selo "⭐ Treino de Hoje" (base.css) fica no canto superior do card:
-   abre espaço pra ele não passar por cima do título nem da seta. */
-
-#workoutSection .day-header {
-    padding-top: 34px;
+    opacity: 1;
 }
 
 /* --------------------------------------------------------------- Mobile */
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
 
     .builder {
-        padding: 20px 18px 5px;
+        padding: 22px 0 8px;
     }
 
-    .session-summary,
-    .session-warning,
-    .session-actions,
-    .history-section {
-        margin-left: 0;
-        margin-right: 0;
-        padding-left: 18px;
-        padding-right: 18px;
+    .session-summary strong {
+        font-size: 23px;
     }
 
-    .session-summary,
-    .session-warning {
-        margin: 0 18px 16px;
-        padding: 12px 15px;
-    }
-
-    .chip {
-        padding: 10px 14px;
-        font-size: 0.9em;
-    }
-
+    /* Botões da série 2 a 2, com o principal ocupando a linha */
     .action-btn {
+        flex: 1 1 calc(50% - 4px);
+    }
+
+    .action-btn.primary {
         flex: 1 1 100%;
     }
 
-    /* Alvos de toque decentes pra usar na academia */
+    /* Tutorial, Trocar e remover cabem na MESMA linha: com 8 exercícios,
+       três linhas de botão cada viravam um corredor de botão. */
+    .exercise-link.exercise-actions {
+        width: 100%;
+        gap: 6px;
+        flex-wrap: nowrap;
+    }
+
     .exercise-link.exercise-actions .tutorial-btn {
-        flex: 1 1 100%;
+        flex: 1 1 auto;
+        width: auto;
+        min-width: 0;
+        min-height: 40px;
+        padding: 10px 8px;
     }
 
     .exercise-link.exercise-actions .icon-btn {
-        flex: 1 1 auto;
-        min-height: 42px;
-        padding: 10px 14px;
-        font-size: 0.85em;
+        flex: 0 0 auto;
+        min-height: 40px;
+        padding: 10px 13px;
     }
 
     .exercise-link.exercise-actions .icon-btn.danger {
-        flex: 0 0 54px;
-    }
-}
-
-@media (max-width: 480px) {
-
-    .builder {
-        padding: 16px 12px 5px;
-    }
-
-    .chip-grid {
-        gap: 8px;
-    }
-
-    .chip {
-        padding: 9px 12px;
-        font-size: 0.85em;
-        gap: 4px;
-    }
-
-    .builder-title {
-        font-size: 1.05em;
-    }
-
-    .generate-btn {
-        padding: 16px;
-        font-size: 1.05em;
-    }
-
-    .session-summary,
-    .session-warning {
-        margin: 0 12px 14px;
-    }
-
-    .session-actions,
-    .history-section {
-        padding-left: 12px;
-        padding-right: 12px;
+        flex: 0 0 42px;
+        padding: 10px 0;
+        text-align: center;
     }
 }

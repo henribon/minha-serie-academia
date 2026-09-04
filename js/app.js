@@ -54,7 +54,7 @@ function renderPage() {
     document.title = `Treino - ${currentConfig.name}`;
 
     // Update header
-    document.querySelector('.header h1').textContent = '💪 Meu Treino 💪';
+    document.querySelector('.header h1').textContent = 'Meu Treino';
     document.querySelector('.header .subtitle').textContent = currentConfig.displayName;
 
     // Update stats
@@ -112,7 +112,6 @@ function createDayContainer(day, dayIndex) {
     header.innerHTML = `
         <div class="day-title">
             <span class="drag-handle">⋮⋮</span>
-            <span>${day.emoji}</span>
             <span>${day.title}</span>
         </div>
         <div class="day-arrow">▼</div>
@@ -134,7 +133,7 @@ function createDayContainer(day, dayIndex) {
     workoutFooter.className = 'workout-footer';
     workoutFooter.innerHTML = `
         <button class="workout-done-btn" onclick="incrementWorkoutCounter(this)">
-            ✅ Malhei Hoje
+            Malhei hoje
         </button>
     `;
     exerciseList.appendChild(workoutFooter);
@@ -147,19 +146,29 @@ function createDayContainer(day, dayIndex) {
 }
 
 /**
+ * As dicas do banco começam com um emoji marcador (⚠️, 🔥, 📐...). O dado
+ * continua lá, mas na tela ele destoa da tipografia — então não renderiza.
+ */
+function semEmojiInicial(texto) {
+    return String(texto || '')
+        .replace(/^[\u{1F300}-\u{1FAFF}\u{2190}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]+\s*/u, '')
+        .trim();
+}
+
+/**
  * Create an exercise item
  */
 function createExerciseItem(exercise, number, dayIndex) {
     const li = document.createElement('li');
     li.className = 'exercise-item';
 
-    const note = exercise.note ? `<div class="exercise-note">${exercise.note}</div>` : '';
+    const cleanNote = semEmojiInicial(exercise.note);
+    const note = cleanNote ? `<div class="exercise-note">${cleanNote}</div>` : '';
     const checkboxId = `exercise-check-${dayIndex}-${number}`;
     const weightTracker = currentConfig.weightTracking ? `
                 <div class="weight-tracker">
-                    <span class="weight-label">⚖️</span>
                     <input type="number" class="weight-field" data-exercise="${slugify(exercise.name)}"
-                        placeholder="kg" step="0.5" min="0" max="500" onchange="saveExerciseWeight(this)">
+                        placeholder="0" step="0.5" min="0" max="500" onchange="saveExerciseWeight(this)">
                     <span class="weight-unit">kg</span>
                 </div>` : '';
 
@@ -243,7 +252,7 @@ function loadHighlightedDay() {
 }
 
 function resetWorkoutProgress() {
-    const confirmReset = confirm("⚠️ Você deseja MESMO resetar todo o progresso?\n\nIsso irá zerar:\n• Contador de treinos\n• Próximo treino destacado\n\nEsta ação não pode ser desfeita!");
+    const confirmReset = confirm("Você deseja MESMO resetar todo o progresso?\n\nIsso irá zerar:\n• Contador de treinos\n• Próximo treino destacado\n\nEsta ação não pode ser desfeita!");
 
     if (!confirmReset) {
         return;
@@ -262,7 +271,7 @@ function resetWorkoutProgress() {
         day.classList.remove("highlighted");
     });
 
-    alert("🔄 Progresso foi resetado!");
+    alert("Progresso resetado.");
 }
 
 /**
@@ -508,16 +517,16 @@ function updateProgressBar() {
     const goalReached = isGaining ? currentWeight >= TARGET_WEIGHT : currentWeight <= TARGET_WEIGHT;
 
     if (goalReached) {
-        progressText.textContent = '🎉 Meta alcançada!';
-        progressCircle.style.stroke = '#10b981';
+        progressText.textContent = 'Meta alcançada';
+        progressCircle.style.stroke = 'var(--ok)';
     } else if (remaining > 0) {
         progressText.textContent = `Faltam ${remaining.toFixed(1)}kg`;
-        progressCircle.style.stroke = 'var(--color-primary)';
+        progressCircle.style.stroke = 'var(--accent)';
     } else {
         const extra = Math.abs(remaining);
         const beyondText = isGaining ? 'além da meta!' : 'abaixo da meta!';
         progressText.textContent = `${extra.toFixed(1)}kg ${beyondText}`;
-        progressCircle.style.stroke = '#10b981';
+        progressCircle.style.stroke = 'var(--ok)';
     }
 }
 

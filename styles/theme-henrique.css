@@ -1,49 +1,9 @@
-/* Theme: Henrique - Purple/Violet */
+/* Tema: Henrique — violeta
+   Papel e tinta vêm de base.css. Aqui muda só o acento — usado com
+   parcimônia: filete do bloco, séries/repetições, check e estado ativo. */
 
 :root {
-    /* Primary Colors */
-    --color-primary: #9333ea;
-    --color-secondary: #a855f7;
-    --color-primary-light: rgba(147, 51, 234, 0.1);
-    --color-primary-shadow: rgba(147, 51, 234, 0.4);
-
-    /* Gradients */
-    --gradient-background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
-    --gradient-header: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
-    --gradient-day-header: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
-    --gradient-exercise: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
-    --gradient-tutorial: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);
-    --gradient-tutorial-active: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
-
-    /* Goal Section */
-    --gradient-goal: linear-gradient(135deg, #e9d5ff 0%, #ddd6fe 100%);
-    --color-goal: #9333ea;
-    --color-goal-dark: #6b21a8;
-
-    /* Start Date Section */
-    --gradient-start-date: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
-    --color-start-date: #7c3aed;
-    --color-start-date-dark: #5b21b6;
-
-    /* Alert */
-    --gradient-alert: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    --color-alert: #f59e0b;
-    --color-alert-dark: #92400e;
-    --color-alert-text: #78350f;
-    --color-alert-hover: rgba(146, 64, 14, 0.1);
-
-    /* Exercise Items */
-    --color-exercise: #9333ea;
-    --bg-exercise-reps: #e9ecef;
-    --color-exercise-reps: #495057;
-
-    /* Divider */
-    --gradient-divider: linear-gradient(135deg, #e9d5ff 0%, #ddd6fe 100%);
-    --color-divider: #6b21a8;
-
-    /* Shadows */
-    --shadow-day-header: 0 4px 12px rgba(147, 51, 234, 0.3);
-    --shadow-day-header-hover: 0 6px 16px rgba(147, 51, 234, 0.4);
-    --shadow-tutorial: 0 3px 8px rgba(147, 51, 234, 0.3);
-    --shadow-tutorial-hover: 0 5px 12px rgba(147, 51, 234, 0.5);
+    --accent: #6d28d9;
+    --accent-ink: #4c1d95;
+    --accent-wash: #f1ecfb;
 }
