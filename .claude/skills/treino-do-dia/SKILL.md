@@ -17,6 +17,7 @@ musculares e o app monta uma série que se renova a cada treino.
 | `js/generator.js` | Motor: distribui volume, escolhe exercícios, aplica anti-repetição. Lógica pura, sem DOM. |
 | `js/montar.js` | Controlador da página `montar.html` (render, localStorage, troca, histórico). |
 | `tools/gerar-treino.js` | CLI que roda o **mesmo** motor pelo terminal. |
+| `tools/checar-gifs.js` | Confere se as URLs de GIF do banco respondem de verdade. |
 | `styles/montar.css` | Estilos do montador. As séries usam as classes de `styles/base.css`. |
 
 O gerador faz três coisas que você **não deve reimplementar na mão**:
@@ -94,25 +95,62 @@ console.log('total',EXERCICIOS.length,
 
 E gere um treino do grupo afetado pra ver o exercício novo entrando.
 
-## Achar GIF pra um exercício
+## Completar os GIFs que faltam
 
 Boa parte do banco está com `gif: null` — a página cai num link de busca no
-YouTube, mas GIF é melhor. Quando pedirem pra completar os GIFs:
+YouTube, mas GIF é melhor. Este é o trabalho mais comum de manutenção aqui.
 
-1. Procure na web um GIF que **demonstre o movimento certo** (hipertrofia.org,
-   mundoboaforma.com.br, fitnessprogramer.com e musclewiki costumam ter).
-2. **Abra a URL e confirme que ela responde e é mesmo uma imagem.** GIF quebrado
-   é pior que nenhum GIF — não chute URL por padrão de nome.
-3. Confira que a animação é do exercício correto (adução × abdução, flexora ×
-   extensora e supinada × pronada trocam com facilidade).
-4. Preencha o campo `gif` e teste abrindo o Tutorial na página.
+**A regra que manda: GIF quebrado é pior que GIF nenhum.** Nunca escreva uma URL
+no banco sem ter confirmado que ela responde. Não deduza URL por padrão de nome
+de arquivo — os CDNs desses sites têm pasta por ano/mês e o palpite quase sempre
+dá 404.
 
-Pra listar o que falta:
+### O loop
 
 ```bash
-node -e "const{EXERCICIOS}=require('./js/exercise-db.js');
-const f=EXERCICIOS.filter(e=>!e.gif);
-console.log(f.length+' sem GIF:');f.forEach(e=>console.log(' -',e.id,'|',e.nome));"
+# 1. Veja o que falta (agrupado por músculo)
+node tools/checar-gifs.js --faltando
+
+# 2. Ache um candidato na web para UM exercício
+#    Bons acervos: hipertrofia.org, mundoboaforma.com.br, fitnessprogramer.com,
+#    musclewiki.com, tuasaude.com, treinoemalta.com.br
+
+# 3. Confirme a URL ANTES de escrever no banco
+node tools/checar-gifs.js --url=https://exemplo.com/agachamento.gif
+
+# 4. Só se der ✅, preencha o campo `gif` do exercício em js/exercise-db.js
+
+# 5. No fim, confira o banco inteiro (pega também GIF antigo que morreu)
+node tools/checar-gifs.js
+```
+
+O verificador reprova três coisas que passam despercebidas a olho nu: 404,
+resposta 200 que na verdade é uma página HTML de erro, e servidor que trava.
+Ele sai com código 1 se achar qualquer URL quebrada.
+
+### O que o verificador NÃO checa
+
+Ele confirma que a URL entrega uma imagem — não que a imagem é do exercício
+certo. Isso é com você: **abra o GIF e olhe**. Os pares que mais se confundem:
+
+- adução × abdução de quadril
+- cadeira flexora × extensora
+- pegada supinada × pronada × neutra
+- rosca scott × rosca concentrada
+- supino inclinado × declinado
+
+Se não der pra confirmar o que o GIF mostra, deixe `null`. O fallback de busca
+no YouTube já resolve pro usuário.
+
+### Trabalhando em lote
+
+Vá por grupo muscular (todos os de costas, depois os de ombro...) e commite por
+grupo. Assim, se um GIF sair errado, dá pra achar rápido. Ao terminar cada
+grupo, gere um treino dele e abra o Tutorial de cada exercício na página:
+
+```bash
+node tools/gerar-treino.js costas --duracao=90
+python3 -m http.server 8811   # http://127.0.0.1:8811/montar.html
 ```
 
 ## Testar a página

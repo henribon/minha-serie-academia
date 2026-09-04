@@ -53,6 +53,12 @@ Rodando o [Claude Code](https://claude.com/claude-code) dentro deste repositóri
 /treino costas e triceps
 ```
 
+Ou, pra completar os GIFs que faltam no banco:
+
+```
+/gifs costas
+```
+
 A skill `.claude/skills/treino-do-dia/` ensina o Claude a montar a série pelo
 motor real, adicionar exercícios novos ao banco e caçar os GIFs que faltam.
 
@@ -74,7 +80,21 @@ js/app.js             Controlador das séries fixas
 styles/base.css       Estilos compartilhados
 styles/theme-*.css    Um tema por pessoa + tema do dia
 tools/gerar-treino.js CLI (usa o mesmo motor)
+tools/checar-gifs.js  Confere se as URLs de GIF respondem
 ```
+
+## Conferir os GIFs
+
+43 dos 107 exercícios têm GIF; o resto cai num link de tutorial no YouTube.
+
+```bash
+node tools/checar-gifs.js --faltando        # quem ainda está sem
+node tools/checar-gifs.js --url=<url>       # confere um candidato
+node tools/checar-gifs.js                   # confere o banco inteiro
+```
+
+Sai com código 1 se achar URL quebrada. Reprova 404, servidor travado e também
+resposta 200 que na verdade é página de erro em HTML.
 
 ## Rodar local
 
